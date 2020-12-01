@@ -18,7 +18,7 @@ namespace StoreApp.DataAccess.BusinessModels
             StoreId = _storeId;
             CustomerId = _customerId;
         }
-        public Order() { //do nothing}
+
         public int TransactionNumber { get; set; }
         public int StoreId { get; set; }
         public int CustomerId { get; set; }

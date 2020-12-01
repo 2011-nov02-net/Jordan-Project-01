@@ -27,7 +27,6 @@ namespace StoreApp.DataAccess.BusinessModels
             City = _city;
             Zip = _zip;
         }
-        public Store() { };
         /// <summary>
         /// Returns a true if all the required files are in the database.
         /// </summary>
