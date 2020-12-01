@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StoreApp.DataAccess.BusinessModels
 {
-    public class Order : IOrder
+    public class Order
     {
         /// <summary>
         /// Create an Order, Every Order has a storeId and a customerId

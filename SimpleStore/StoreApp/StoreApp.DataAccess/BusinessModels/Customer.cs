@@ -2,7 +2,7 @@
 
 namespace StoreApp.DataAccess.BusinessModels
 {
-    public class Customer : ICustomer
+    public class Customer
     {
         public int CustomerId { get; set; }
         public string FirstName { get; set; }
@@ -11,6 +11,6 @@ namespace StoreApp.DataAccess.BusinessModels
         public string Phone { get; set; }
         public string Password { get; set; }
 
-        public virtual ICollection<IOrder> CustomerOrders { get; set; }
+        public virtual ICollection<Order> CustomerOrders { get; set; }
     }
 }

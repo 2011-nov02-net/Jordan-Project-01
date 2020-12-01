@@ -12,8 +12,9 @@ namespace StoreApp.DataAccess.Repositores
     {
         Task<List<BusinessModels.Store>> GetAllStoresAsync();
         IEnumerable<BusinessModels.Store> GetAllStores();
-        void AddStore(BusinessModels.Store store);
-        void RemoveStore(int StoreId);
+        Task AddStoreAsync(BusinessModels.Store store);
+        Task DeleteStore(int StoreId);
+        Task<BusinessModels.Store> FindStore(int StoreId);
 
         Task<List<BusinessModels.Customer>> GetAllCustomersAsync();
         IEnumerable<BusinessModels.Customer> GetAllCustomers();

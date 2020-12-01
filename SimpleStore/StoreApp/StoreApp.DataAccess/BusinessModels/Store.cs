@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 namespace StoreApp.DataAccess.BusinessModels
 {
-    public class Store : IStore
+    public class Store
     {
 
         /// <summary>
@@ -27,6 +27,15 @@ namespace StoreApp.DataAccess.BusinessModels
             City = _city;
             Zip = _zip;
         }
+        public Store(string _name, string _street = "", string _state = "", string _city = "", string _zip = "")
+        {
+            Name = _name;
+            State = _state;
+            Street = _street;
+            City = _city;
+            Zip = _zip;
+        }
+
         /// <summary>
         /// Returns a true if all the required files are in the database.
         /// </summary>
@@ -48,6 +57,6 @@ namespace StoreApp.DataAccess.BusinessModels
         public string City { get; set; }
         public string Zip { get; set; }
 
-        public virtual ICollection<IOrder> Orders { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

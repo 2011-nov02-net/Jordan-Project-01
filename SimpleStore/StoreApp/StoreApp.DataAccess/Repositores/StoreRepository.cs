@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using StoreApp.DataAccess;
 using StoreApp.DataAccess.EfModels;
 using StoreApp.DataAccess.BusinessModels;
 using Microsoft.EntityFrameworkCore;
@@ -22,8 +23,9 @@ namespace StoreApp.DataAccess.Repositores
         /// <returns>a Task List of Business Models</returns>
         public async Task<List<BusinessModels.Store>> GetAllStoresAsync()
         {
-            var entity= await _context.Stores.ToListAsync();
-            var table = await Task.Run(() => entity.Select(e => new BusinessModels.Store(e.StoreId, e.Name, e.Street, e.State, e.City, e.Zip)).ToList());
+            // query from DB to async
+            var entity = await _context.Stores.ToListAsync();
+            var table = entity.Select(e => new BusinessModels.Store(e.StoreId, e.Name, e.Street, e.State, e.City, e.Zip)).ToList();
             return table;
         }
         /// <summary>
@@ -33,17 +35,35 @@ namespace StoreApp.DataAccess.Repositores
         public IEnumerable<BusinessModels.Store> GetAllStores()
         {
             // query from DB
-            var entities = _context.Stores.ToList();
+            List<EfModels.Store> entities = _context.Stores.ToList();
+
             return entities.Select(e => new BusinessModels.Store(e.StoreId, e.Name, e.Street, e.State, e.City, e.Zip));
         }
-        void IRepository.AddStore(BusinessModels.Store store)
+        async Task IRepository.AddStoreAsync(BusinessModels.Store store)
         {
-            throw new NotImplementedException();
+            EfModels.Store newStore = new EfModels.Store()
+            {
+                Name = store.Name,
+                State = store.State,
+                Street = store.Street,
+                City = store.City,
+                Zip = store.Zip
+            };
+            await _context.AddAsync(newStore);
+            await _context.SaveChangesAsync();
+        }
+        async Task<BusinessModels.Store> IRepository.FindStore(int StoreId)
+        {
+            EfModels.Store e = await _context.Stores.FindAsync(StoreId);
+            return new BusinessModels.Store(e.StoreId, e.Name, e.Street, e.State, e.City, e.Zip);
         }
 
-        void IRepository.RemoveStore(int StoreId)
+        async Task IRepository.DeleteStore(int StoreId)
         {
-            throw new NotImplementedException();
+            EfModels.Store store = await _context.Stores.FindAsync(StoreId);
+            _context.Stores.Remove(store);
+            _context.SaveChanges();
+
         }
 
         Task<List<BusinessModels.Customer>> IRepository.GetAllCustomersAsync()
@@ -59,17 +79,19 @@ namespace StoreApp.DataAccess.Repositores
         void IRepository.AddCustomer(BusinessModels.Customer customer)
         {
             // pass in all the values of customer and place them in.
-            ICustomer newCustomer = new BusinessModels.Customer()
+            BusinessModels.Customer newCustomer = new BusinessModels.Customer()
             {
                 FirstName = customer.FirstName,
                 LastName = customer.LastName,
                 Email = customer.Email,
                 Phone = customer.Phone
             };
+
             // add customer to context
             _context.Add(newCustomer);
             _context.SaveChanges();
         }
+
 
         void IRepository.RemoveCustomer(int CustomerId)
         {
@@ -115,5 +137,7 @@ namespace StoreApp.DataAccess.Repositores
         {
             throw new NotImplementedException();
         }
+
+
     }
 }

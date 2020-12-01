@@ -3,10 +3,10 @@ using System.Linq;
 
 namespace StoreApp.DataAccess.BusinessModels
 {
-    public class Database : IDatabase
+    public class Database
     {
         public ICollection<Customer> Customers { get; set; }
-        public ICollection<IStore> Stores { get; set; }
+        public ICollection<Store> Stores { get; set; }
 
         public Database()
         {
@@ -18,10 +18,10 @@ namespace StoreApp.DataAccess.BusinessModels
         /// </summary>
         /// <param name="customers"></param>
         /// <param name="stores"></param>
-        public Database(ICollection<Customer> customers, ICollection<IStore> stores)
+        public Database(ICollection<Customer> customers, ICollection<Store> stores)
         {
             Customers = customers;
-            IStores = stores;
+            Stores = stores;
         }
 
         /// <summary>
@@ -41,12 +41,12 @@ namespace StoreApp.DataAccess.BusinessModels
         /// <summary>
         /// Returns the amount of stores in the database
         /// </summary>
-        public int StoreCount() => IStores.Count();
+        public int StoreCount() => Stores.Count();
 
         /// <summary>
         /// Returns the amount of Customers in the database
         /// </summary>
         /// <returns></returns>
-        public int CustomerCount() => ICustomers.Count();
+        public int CustomerCount() => Customers.Count();
     }
 }
