@@ -4,9 +4,9 @@ namespace StoreApp.DataAccess.BusinessModels
 {
     public interface IDatabase
     {
-        ICollection<ICustomer> Customers { get; set; }
-        ICollection<IStore> Stores { get; set; }
-
+        List<ICustomer> Customers { get; set; }
+        List<IStore> Stores { get; set; }
+        public void addStore(IStore store);
         int CustomerCount();
         ICustomer GetCustomerById(int id);
         IStore GetStoreById(int id);
