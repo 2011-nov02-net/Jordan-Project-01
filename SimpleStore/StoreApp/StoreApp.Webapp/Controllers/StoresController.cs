@@ -23,9 +23,13 @@ namespace StoreApp.Webapp.Controllers
         }
 
         // GET: Stores
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _repository.GetAllStoresAsync());
+            Database db = new Database(await _repository.GetAllStoresAsync());
+
+            var stores = db.GetStoresByName(searchString);
+
+            return View(stores);
         }
         
         // GET: Stores/Details/5
