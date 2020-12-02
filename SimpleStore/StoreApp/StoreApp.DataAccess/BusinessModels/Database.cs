@@ -40,6 +40,11 @@ namespace StoreApp.DataAccess.BusinessModels
         /// <param name="id"></param>
         /// <returns></returns>
         public Store GetStoreById(int id) => Stores.FirstOrDefault(x => x.StoreId == id);
+        /// <summary>
+        /// Get a list of stores by a search string.
+        /// </summary>
+        /// <param name="searchString"></param>
+        /// <returns></returns>
         public List<Store> GetStoresByName(string searchString)
         {
             List<Store> _stores = new List<Store>();
