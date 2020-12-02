@@ -31,24 +31,6 @@ namespace StoreApp.Webapp.Controllers
 
             return View(stores);
         }
-        
-        // GET: Stores/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var store = await _context.Stores
-        //        .FirstOrDefaultAsync(m => m.StoreId == id);
-        //    if (store == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(store);
-        //}
 
         // GET: Stores/Create
         public IActionResult Create()
@@ -72,57 +54,6 @@ namespace StoreApp.Webapp.Controllers
             return View(store);
         }
 
-        //// GET: Stores/Edit/5
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var store = await _context.Stores.FindAsync(id);
-        //    if (store == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(store);
-        //}
-
-        //// POST: Stores/Edit/5
-        //// To protect from overposting attacks, enable the specific properties you want to bind to.
-        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("StoreId,Name,Street,State,City,Zip")] Store store)
-        //{
-        //    if (id != store.StoreId)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(store);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!StoreExists(store.StoreId))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(store);
-        //}
-
         // GET: Stores/Delete/5
         public async Task<IActionResult> Delete(int id=0)
         {
@@ -143,12 +74,6 @@ namespace StoreApp.Webapp.Controllers
             await _repository.DeleteStore(id);
             return RedirectToAction(nameof(Index));
         }
-
-        //private bool StoreExists(int id)
-        //{
-        //    return _context.Stores.Any(e => e.StoreId == id);
-        //}
-        //        */
 
     }
 }
