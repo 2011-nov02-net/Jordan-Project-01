@@ -13,7 +13,8 @@ trigger:
       - master
   paths:
     include:
-      - .
+      - azure-pipelines.yml
+      - 'SimpleStore/StoreApp/StoreApp.Webapp'
 # short for "agent pool" as in "build agent"
 # i.e.: what set of machines will be the build agents to run these steps.
 pool:
