@@ -41,11 +41,18 @@ steps:
     scannerMode: 'MSBuild'
     projectKey: '2011-nov02-net_Jordan-Project-01'
     projectName: 'StoreApp'
+#- task: UseDotNet@2
+#  displayName: dotnet sdk $(sdkVersion)
+#  inputs:
+#    packageType: 'sdk'
+#
+#    version: '$(sdkVersion)'
 - task: UseDotNet@2
-  displayName: dotnet sdk $(sdkVersion)
+  displayName: 'Use .NET 5 SDK'
   inputs:
     packageType: 'sdk'
-    version: '$(sdkVersion)'
+    version: '5.0.100'
+    installationPath: $(Agent.ToolsDirectory)/dotnet
 - task: DotNetCoreCLI@2
   displayName: dotnet test2
   inputs:
