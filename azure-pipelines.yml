@@ -1,7 +1,11 @@
-# ASP.NET Core
-# Build and test ASP.NET Core projects targeting .NET Core.
-# Add steps that run tests, create a NuGet package, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+# this file defines a pipeline, a set of rules for building and validating the source code in a repo
+# it's written in a format called YAML
+
+# trigger defined when the pipeline will run.
+# list-of-branches syntax:
+# trigger:
+# - main
 
 trigger:
   branches:
@@ -10,24 +14,27 @@ trigger:
   paths:
     include:
       - .
-#short for agent pool as in build agent
-# ie what set of machines will be the builds agents to run these steps.
+# short for "agent pool" as in "build agent"
+# i.e.: what set of machines will be the build agents to run these steps.
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: ubuntu-latest
 
-#variables common to multiple steps
+
+# variables common to multiple steps
 variables:
-  buildConfiguration: 'Release'
+  sdkVersion: 3.1.x
+  buildConfiguration: Release
 
 #these steps are run in sequence by the build agent.
 # in a directory that contains the most recent push on that repo.
 steps:
+# the two most common types of steps are "script" and "task"
+steps:
 - task: UseDotNet@2
-  displayName: 'Use .NET 5 SDK'
+  displayName: dotnet sdk 2.x
   inputs:
     packageType: 'sdk'
-    version: '5.0.100'
-    installationPath: $(Agent.ToolsDirectory)/dotnet
+    version: '2.x'
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'Devop'
@@ -35,9 +42,25 @@ steps:
     scannerMode: 'MSBuild'
     projectKey: '2011-nov02-net_Jordan-Project-01'
     projectName: 'StoreApp'
+- task: UseDotNet@2
+  displayName: dotnet sdk $(sdkVersion)
+  inputs:
+    packageType: 'sdk'
+    version: '$(sdkVersion)'
 - task: DotNetCoreCLI@2
+  displayName: dotnet test
   inputs:
     command: 'test'
-    publishTestResults: True
-    workingDirectory: "."
-- task: SonarCloudAnalyze@1
+    arguments: '--configuration $(buildConfiguration)'
+    publishTestResults: true
+    workingDirectory: .
+- script: dotnet publish --configuration $(buildConfiguration) --output publish
+  displayName: dotnet publish
+  workingDirectory: .
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Azure subscription 1(df6ff56e-adce-469a-8485-54a817a8762b)'
+    appType: 'webApp'
+    WebAppName: 'Garcia-OrderApp'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
