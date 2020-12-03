@@ -35,7 +35,11 @@ namespace StoreApp.DataAccess.BusinessModels
             City = _city;
             Zip = _zip;
         }
-
+        public Store(int _storeId, string _name)
+        {
+            StoreId = _storeId;
+            Name = _name;
+        }
         /// <summary>
         /// Returns a true if all the required files are in the database.
         /// </summary>
@@ -49,6 +53,10 @@ namespace StoreApp.DataAccess.BusinessModels
             // otherwise return true
             return true;
         }
+        public void AddInventory(Product product)
+        {
+            Inventory.Add(product);
+        }
 
         public int StoreId { get; set; }
         public string Name { get; set; }
@@ -57,6 +65,18 @@ namespace StoreApp.DataAccess.BusinessModels
         public string City { get; set; }
         public string Zip { get; set; }
 
+        private List<Product>_inventory = new List<Product>();
+
+
+        public List<Product> Inventory
+        {
+            get {
+                return _inventory;
+            }
+            set {
+                Inventory = value;
+            }
+        }
         public virtual ICollection<Order> Orders { get; set; }
     }
 }
