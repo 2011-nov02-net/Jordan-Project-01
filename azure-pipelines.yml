@@ -28,8 +28,16 @@ steps:
     packageType: 'sdk'
     version: '5.0.100'
     installationPath: $(Agent.ToolsDirectory)/dotnet
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'Devop'
+    organization: '2011-nov02-net'
+    scannerMode: 'MSBuild'
+    projectKey: '2011-nov02-net_Jordan-Project-01'
+    projectName: 'StoreApp'
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
-    publishTestResults: true
-    workingDirectory: '.'
+    publishTestResults: True
+    workingDirectory: "."
+- task: SonarCloudAnalyze@1
