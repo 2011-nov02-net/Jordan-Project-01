@@ -83,6 +83,7 @@ steps:
 
 - script: dotnet publish --configuration $(buildConfiguration) --output publish
   displayName: dotnet publish
+  workingDirectory: SimpleStore/StoreApp/StoreApp.Webapp/
 
 - task: AzureRmWebAppDeployment@4
   inputs:
