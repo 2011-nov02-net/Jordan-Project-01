@@ -28,3 +28,7 @@ steps:
     packageType: 'sdk'
     version: '5.0.100'
     installationPath: $(Agent.ToolsDirectory)/dotnet
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '5.0.100'
