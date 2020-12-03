@@ -22,13 +22,14 @@ variables:
 #these steps are run in sequence by the build agent.
 # in a directory that contains the most recent push on that repo.
 steps:
+- script: dotnet build --configuration $()
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '5.0.100'
 - task: UseDotNet@2
   displayName: 'Use .NET 5 SDK'
   inputs:
     packageType: 'sdk'
     version: '5.0.100'
     installationPath: $(Agent.ToolsDirectory)/dotnet
-- task: UseDotNet@2
-  inputs:
-    packageType: 'sdk'
-    version: '5.0.100'
