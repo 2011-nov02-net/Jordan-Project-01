@@ -80,11 +80,9 @@ steps:
     command: 'build'
     projects: '**/*.csproj'
     arguments: -o testpath
-
 - script: dotnet publish --configuration $(buildConfiguration) --output publish
   displayName: dotnet publish
   workingDirectory: SimpleStore/StoreApp/StoreApp.Webapp/
-
 - task: AzureRmWebAppDeployment@4
   displayName: azure app service deploy
   inputs:
