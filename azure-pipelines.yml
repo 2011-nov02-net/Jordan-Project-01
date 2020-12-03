@@ -57,7 +57,13 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
+    projects: 'SimpleStore/StoreApp/StoreApp.Webapp/'
     arguments: '--configuration $(buildConfiguration)'
+  displayName: "Build w/ $(buildConfiguration) "
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    arguments: ''
   displayName: 'dotnet build $(buildConfiguration)'
 #- script: dotnet build --configuration $(buildConfiguration)
 #  displayName: dotnet build
