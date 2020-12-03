@@ -16,6 +16,7 @@ namespace StoreApp.DataAccess.Repositores
         public StoreRepository(StoreDBContext context)
         {
             _context = context;
+            context.Database.EnsureCreated();
         }
         /// <summary>
         /// Connect to the database and grab tables
@@ -52,7 +53,7 @@ namespace StoreApp.DataAccess.Repositores
             await _context.AddAsync(newStore);
             await _context.SaveChangesAsync();
         }
-        async Task<BusinessModels.Store> IRepository.FindStore(int StoreId)
+        public async Task<BusinessModels.Store> FindStore(int StoreId)
         {
             EfModels.Store e = await _context.Stores.FindAsync(StoreId);
             return new BusinessModels.Store(e.StoreId, e.Name, e.Street, e.State, e.City, e.Zip);
@@ -103,10 +104,6 @@ namespace StoreApp.DataAccess.Repositores
             throw new NotImplementedException();
         }
 
-        IEnumerable<BusinessModels.Product> IRepository.GetAllProducts()
-        {
-            throw new NotImplementedException();
-        }
 
         void IRepository.AddProduct(BusinessModels.Product product)
         {
@@ -138,6 +135,47 @@ namespace StoreApp.DataAccess.Repositores
             throw new NotImplementedException();
         }
 
+        public Task<BusinessModels.Product> GetAllProducts()
+        {
+            throw new NotImplementedException();
+        }
 
+        BusinessModels.Store IRepository.GetAllProducts(int id)
+        {
+            var dbInventory = _context.Inventories.Include(i => i.Product).ThenInclude(i => i.Prices);
+
+            var store = new BusinessModels.Store(id, "Walmart");
+
+            foreach (var inventory in dbInventory)
+            {
+                // wont let me do .First i'll have to ask nick why
+                if (inventory.StoreId == id)
+                {
+                    // turn the price datatype to a list
+                    var PriceList = inventory.Product.Prices.ToList();
+                    // should grab the newest price in price list
+                    var price = PriceList[PriceList.Count - 1].Price1;
+                    // add to the Inventory class
+                    store.AddInventory(new BusinessModels.Product(inventory.Product.ProductId, inventory.Product.Name, (int)inventory.Quantity, (double)price));
+                }
+            }
+
+            return store;
+        }
+
+        async Task<BusinessModels.Store> IRepository.GetProduct(int StoreId, int ProductId)
+        {
+            {
+                // get the store id
+                var store = await FindStore(StoreId);
+                var dbInventory = await _context.Inventories.Include(i => i.Product).ThenInclude(i => i.Prices).FirstOrDefaultAsync(i => i.StoreId == StoreId && i.ProductId==ProductId);
+                var price = dbInventory.Product.Prices;
+                var list = price.ToList();
+                decimal cost = list[0].Price1;
+                store.Inventory.Add(new BusinessModels.Product(dbInventory.ProductId, dbInventory.Product.Name, Convert.ToInt32(dbInventory.Quantity), (double)cost));
+                //int productID, string name, int quantity, double price
+                return store;
+            }
+        }
     }
 }

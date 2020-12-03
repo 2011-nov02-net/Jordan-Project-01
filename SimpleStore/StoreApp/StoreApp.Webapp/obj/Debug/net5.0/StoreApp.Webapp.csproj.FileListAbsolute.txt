@@ -53,8 +53,6 @@ C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj
 C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\StoreApp.Webapp.TagHelpers.input.cache
 C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\StoreApp.Webapp.TagHelpers.output.cache
 C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\StoreApp.Webapp.RazorCoreGenerate.cache
-C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
-C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
 C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
@@ -170,3 +168,8 @@ C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj
 C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Stores\Details.cshtml.g.cs
 C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Stores\Edit.cshtml.g.cs
 C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Stores\Index.cshtml.g.cs
+C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Inventories\Delete.cshtml.g.cs
+C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Inventories\Details.cshtml.g.cs
+C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Inventories\Edit.cshtml.g.cs
+C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Inventories\Index.cshtml.g.cs
+C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Inventories\Add.cshtml.g.cs

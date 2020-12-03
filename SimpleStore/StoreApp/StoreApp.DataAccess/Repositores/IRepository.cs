@@ -15,14 +15,14 @@ namespace StoreApp.DataAccess.Repositores
         Task AddStoreAsync(BusinessModels.Store store);
         Task DeleteStore(int StoreId);
         Task<BusinessModels.Store> FindStore(int StoreId);
-
+        Task<BusinessModels.Store> GetProduct(int StoreId, int ProductId);
         Task<List<BusinessModels.Customer>> GetAllCustomersAsync();
         IEnumerable<BusinessModels.Customer> GetAllCustomers();
         void AddCustomer(BusinessModels.Customer customer);
         void RemoveCustomer(int CustomerId);
 
         Task<List<BusinessModels.Product>> GetAllProductsAsync();
-        IEnumerable<BusinessModels.Product> GetAllProducts();
+        BusinessModels.Store GetAllProducts(int id);
         void AddProduct(BusinessModels.Product product);
         void RemoveProduct(int ProductId);
 
