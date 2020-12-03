@@ -57,7 +57,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-
+    projects: '**/*.cproj'
 #- script: dotnet build --configuration $(buildConfiguration)
 #  displayName: dotnet build
 
