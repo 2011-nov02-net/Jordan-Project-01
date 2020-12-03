@@ -47,6 +47,12 @@ steps:
     packageType: 'sdk'
     version: '$(sdkVersion)'
 - task: DotNetCoreCLI@2
+  displayName: dotnet test2
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'
+    arguments: -o testpath
+- task: DotNetCoreCLI@2
   displayName: dotnet test
   inputs:
     command: 'test'
