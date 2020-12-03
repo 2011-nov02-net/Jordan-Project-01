@@ -53,15 +53,28 @@ steps:
     packageType: 'sdk'
     version: '5.0.100'
     installationPath: $(Agent.ToolsDirectory)/dotnet
+
+- script: dotnet build --configuration $(buildConfiguration)
+  displayName: dotnet build
+
+- task: SonarCloudAnalyze@1
+  displayName: sonar run analysis
+
+- task: SonarCloudPublish@1
+  displayName: sonar analysis publish
+  inputs:
+    pollingTimeoutSec: '300'
+
 - task: DotNetCoreCLI@2
   displayName: dotnet test2
   inputs:
     command: 'build'
     projects: '**/*.csproj'
     arguments: -o testpath
+
 - script: dotnet publish --configuration $(buildConfiguration) --output publish
   displayName: dotnet publish
-  workingDirectory: .
+
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
