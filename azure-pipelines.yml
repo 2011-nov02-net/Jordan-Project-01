@@ -54,8 +54,12 @@ steps:
     version: '5.0.100'
     installationPath: $(Agent.ToolsDirectory)/dotnet
 
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: dotnet build
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+
+#- script: dotnet build --configuration $(buildConfiguration)
+#  displayName: dotnet build
 
 - task: SonarCloudAnalyze@1
   displayName: sonar run analysis
