@@ -51,26 +51,43 @@ steps:
   displayName: 'Use .NET 5 SDK'
   inputs:
     packageType: 'sdk'
-    version: '5.0.100'
+    version: '5.x'
     installationPath: $(Agent.ToolsDirectory)/dotnet
+
+
+#- task: DotNetCoreCLI@2
+#  inputs:
+#    command: 'build'
+#    projects: 'SimpleStore/StoreApp/StoreApp.Webapp/'
+#    arguments: '--configuration $(buildConfiguration)'
+#  displayName: "Build w/ $(buildConfiguration) "
+
+- script: dotnet build --configuration $(buildConfiguration)
+  displayName: dotnet build
+  workingDirectory: SimpleStore/StoreApp/StoreApp.Webapp/
+
+- task: SonarCloudAnalyze@1
+  displayName: sonar run analysis
+
+- task: SonarCloudPublish@1
+  displayName: sonar analysis publish
+  inputs:
+    pollingTimeoutSec: '300'
+
 - task: DotNetCoreCLI@2
   displayName: dotnet test2
   inputs:
     command: 'build'
     projects: '**/*.csproj'
     arguments: -o testpath
-#- script: dotnet publish --configuration $(buildConfiguration) --output publish
-#  displayName: dotnet publish
-#  workingDirectory: .
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
-    arguments: '--configuration $(buildConfiguration)'
-  displayName: 'dotnet build $(buildConfiguration)'
+- script: dotnet publish --configuration $(buildConfiguration) --output publish
+  displayName: dotnet publish
+  workingDirectory: SimpleStore/StoreApp/StoreApp.Webapp/
 - task: AzureRmWebAppDeployment@4
+  displayName: azure app service deploy
   inputs:
     ConnectionType: 'AzureRM'
     azureSubscription: 'Azure subscription 1(df6ff56e-adce-469a-8485-54a817a8762b)'
     appType: 'webApp'
     WebAppName: 'Garcia-OrderApp'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    packageForLinux: 'SimpleStore/StoreApp/StoreApp.Webapp/'
