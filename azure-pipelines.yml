@@ -29,7 +29,6 @@ variables:
 # in a directory that contains the most recent push on that repo.
 steps:
 # the two most common types of steps are "script" and "task"
-steps:
 - task: UseDotNet@2
   displayName: dotnet sdk 2.x
   inputs:
