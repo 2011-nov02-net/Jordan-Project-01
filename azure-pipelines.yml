@@ -1,0 +1,30 @@
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+  branches:
+    include:
+      - master
+  paths:
+    include:
+      - .
+#short for agent pool as in build agent
+# ie what set of machines will be the builds agents to run these steps.
+pool:
+  vmImage: 'ubuntu-latest'
+
+#variables common to multiple steps
+variables:
+  buildConfiguration: 'Release'
+
+#these steps are run in sequence by the build agent.
+# in a directory that contains the most recent push on that repo.
+
+- task: UseDotNet@2
+  displayName: 'Use .NET 5 SDK'
+  inputs:
+    packageType: 'sdk'
+    version: '5.0.100'
+    installationPath: $(Agent.ToolsDirectory)/dotnet
