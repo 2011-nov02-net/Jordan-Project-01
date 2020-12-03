@@ -1,7 +1,4 @@
 # ASP.NET Core
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'test'
 # Build and test ASP.NET Core projects targeting .NET Core.
 # Add steps that run tests, create a NuGet package, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
@@ -24,10 +21,13 @@ variables:
 
 #these steps are run in sequence by the build agent.
 # in a directory that contains the most recent push on that repo.
-
+steps:
 - task: UseDotNet@2
   displayName: 'Use .NET 5 SDK'
   inputs:
     packageType: 'sdk'
     version: '5.0.100'
     installationPath: $(Agent.ToolsDirectory)/dotnet
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
