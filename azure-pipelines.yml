@@ -1,4 +1,3 @@
-
 # this file defines a pipeline, a set of rules for building and validating the source code in a repo
 # it's written in a format called YAML
 
