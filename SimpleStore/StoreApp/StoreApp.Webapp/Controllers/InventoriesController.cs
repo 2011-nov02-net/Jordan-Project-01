@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using RestSharp;
 using StoreApp.DataAccess.EfModels;
 using StoreApp.DataAccess.Repositores;
 using StoreApp.Webapp.Models;
@@ -14,7 +15,7 @@ namespace StoreApp.Webapp.Controllers
     public class InventoriesController : Controller
     {
         private readonly IRepository _repository;
-
+        public const string CartSessionKey = "CartId";
         public InventoriesController(IRepository repository)
         {
             _repository = repository;
@@ -40,104 +41,113 @@ namespace StoreApp.Webapp.Controllers
 
             return View(model);
         }
-        /*
-        // GET: Inventories/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+                    /*
 
-            var inventory = await _context.Inventories
-                .Include(i => i.Product)
-                .FirstOrDefaultAsync(m => m.StoreId == id);
-            if (inventory == null)
-            {
-                return NotFound();
-            }
-
-            return View(inventory);
-        }
-
-        // GET: Inventories/Create
-        public IActionResult Create()
-        {
-            ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "Name");
-            return View();
-        }
-
-
-
-        // POST: Inventories/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("StoreId,ProductId,Quantity")] Inventory inventory)
+        public async Task<IActionResult> Add(InventoryViewModel inventory)
         {
-            if (id != inventory.StoreId)
+            int[] cart = new int[] { inventory.StoreId, inventory.CustomerId, inventory.ProductId, inventory.Quantity };
+            var yourListString = String.Join(",", cart);
+            HttpCookie yourListCookie = new HttpCookie("YourList", cart);
+        }
+            // GET: Inventories/Details/5
+            public async Task<IActionResult> Details(int? id)
             {
-                return NotFound();
+                if (id == null)
+                {
+                    return NotFound();
+                }
+
+                var inventory = await _context.Inventories
+                    .Include(i => i.Product)
+                    .FirstOrDefaultAsync(m => m.StoreId == id);
+                if (inventory == null)
+                {
+                    return NotFound();
+                }
+
+                return View(inventory);
             }
 
-            if (ModelState.IsValid)
+            // GET: Inventories/Create
+            public IActionResult Create()
             {
-                try
+                ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "Name");
+                return View();
+            }
+
+
+
+            // POST: Inventories/Edit/5
+            // To protect from overposting attacks, enable the specific properties you want to bind to.
+            // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+            [HttpPost]
+            [ValidateAntiForgeryToken]
+            public async Task<IActionResult> Edit(int id, [Bind("StoreId,ProductId,Quantity")] Inventory inventory)
+            {
+                if (id != inventory.StoreId)
                 {
-                    _context.Update(inventory);
-                    await _context.SaveChangesAsync();
+                    return NotFound();
                 }
-                catch (DbUpdateConcurrencyException)
+
+                if (ModelState.IsValid)
                 {
-                    if (!InventoryExists(inventory.StoreId))
+                    try
                     {
-                        return NotFound();
+                        _context.Update(inventory);
+                        await _context.SaveChangesAsync();
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!InventoryExists(inventory.StoreId))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
+                    return RedirectToAction(nameof(Index));
                 }
+                ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "Name", inventory.ProductId);
+                return View(inventory);
+            }
+
+            // GET: Inventories/Delete/5
+            public async Task<IActionResult> Delete(int? id)
+            {
+                if (id == null)
+                {
+                    return NotFound();
+                }
+
+                var inventory = await _context.Inventories
+                    .Include(i => i.Product)
+                    .FirstOrDefaultAsync(m => m.StoreId == id);
+                if (inventory == null)
+                {
+                    return NotFound();
+                }
+
+                return View(inventory);
+            }
+
+            // POST: Inventories/Delete/5
+            [HttpPost, ActionName("Delete")]
+            [ValidateAntiForgeryToken]
+            public async Task<IActionResult> DeleteConfirmed(int id)
+            {
+                var inventory = await _context.Inventories.FindAsync(id);
+                _context.Inventories.Remove(inventory);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "Name", inventory.ProductId);
-            return View(inventory);
-        }
 
-        // GET: Inventories/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
+            private bool InventoryExists(int id)
             {
-                return NotFound();
-            }
-
-            var inventory = await _context.Inventories
-                .Include(i => i.Product)
-                .FirstOrDefaultAsync(m => m.StoreId == id);
-            if (inventory == null)
-            {
-                return NotFound();
-            }
-
-            return View(inventory);
+                return _context.Inventories.Any(e => e.StoreId == id);
+            }*/
         }
-
-        // POST: Inventories/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var inventory = await _context.Inventories.FindAsync(id);
-            _context.Inventories.Remove(inventory);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool InventoryExists(int id)
-        {
-            return _context.Inventories.Any(e => e.StoreId == id);
-        }*/
-    }
 }

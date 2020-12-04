@@ -1,11 +1,15 @@
 ﻿@model IEnumerable<StoreApp.DataAccess.BusinessModels.Store>
+@using System.IO;
+@using Microsoft.AspNetCore.Http;
+
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+   [@TempData["Name"] ]
 
+<h1>Index</h1>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -20,7 +24,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model=> model.StoreId)
+                @Html.DisplayNameFor(model => model.StoreId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Name)

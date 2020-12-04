@@ -6,7 +6,7 @@ namespace StoreApp.DataAccess.BusinessModels
 {
     public class Database
     {
-        public ICollection<Customer> Customers { get; set; }
+        public List<Customer> Customers { get; set; }
         public List<Store> Stores { get; set; }
 
         public Database()
@@ -17,13 +17,17 @@ namespace StoreApp.DataAccess.BusinessModels
         {
             Stores = stores;
         }
+        public Database(List<Customer> customers)
+        {
+            Customers = customers;
+        }
 
         /// <summary>
         /// Initialize a Database with a Customer
         /// </summary>
         /// <param name="customers"></param>
         /// <param name="stores"></param>
-        public Database(ICollection<Customer> customers, List<Store> stores)
+        public Database(List<Customer> customers, List<Store> stores)
         {
             Customers = customers;
             Stores = stores;
@@ -58,10 +62,24 @@ namespace StoreApp.DataAccess.BusinessModels
             }
             return Stores;
         }
+        public List<Customer> GetCustomerByName(string searchString)
+        {
+            List<Customer> _stores = new List<Customer>();
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                var p = from store in Customers
+                        where store.FirstName.Contains(searchString)
+                        select store;
+                _stores = p.ToList();
+                return _stores;
+            }
+            return Customers;
+        }
+
     /// <summary>
     /// Returns the amount of stores in the database
     /// </summary>
-    public int StoreCount() => Stores.Count();
+        public int StoreCount() => Stores.Count();
         /// <summary>
         /// Returns the amount of Customers in the database
         /// </summary>

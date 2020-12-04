@@ -53,6 +53,21 @@ namespace StoreApp.DataAccess.Repositores
             await _context.AddAsync(newStore);
             await _context.SaveChangesAsync();
         }
+        async Task IRepository.AddCustomer(BusinessModels.Customer customer)
+        {
+            // pass in all the values of customer and place them in.
+            EfModels.Customer newCustomer = new EfModels.Customer()
+            {
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                Email = customer.Email,
+                Phone = customer.Phone
+            };
+
+            // add customer to context
+            await _context.AddAsync(newCustomer);
+            await _context.SaveChangesAsync();
+        }
         public async Task<BusinessModels.Store> FindStore(int StoreId)
         {
             EfModels.Store e = await _context.Stores.FindAsync(StoreId);
@@ -67,9 +82,15 @@ namespace StoreApp.DataAccess.Repositores
 
         }
 
-        Task<List<BusinessModels.Customer>> IRepository.GetAllCustomersAsync()
+        async Task<List<BusinessModels.Customer>> IRepository.GetAllCustomersAsync()
         {
-            throw new NotImplementedException();
+            //var entity = await _context.Stores.ToListAsync();
+            //var table = entity.Select(e => new BusinessModels.Store(e.StoreId, e.Name, e.Street, e.State, e.City, e.Zip)).ToList();
+            //return table;
+            // query from DB
+            List<EfModels.Customer> entities = await _context.Customers.ToListAsync();
+            var table = entities.Select(e => new BusinessModels.Customer(e.CustomerId, e.FirstName, e.LastName, e.Email, e.Phone)).ToList();
+            return table;
         }
 
         IEnumerable<BusinessModels.Customer> IRepository.GetAllCustomers()
@@ -77,21 +98,7 @@ namespace StoreApp.DataAccess.Repositores
             throw new NotImplementedException();
         }
 
-        void IRepository.AddCustomer(BusinessModels.Customer customer)
-        {
-            // pass in all the values of customer and place them in.
-            BusinessModels.Customer newCustomer = new BusinessModels.Customer()
-            {
-                FirstName = customer.FirstName,
-                LastName = customer.LastName,
-                Email = customer.Email,
-                Phone = customer.Phone
-            };
 
-            // add customer to context
-            _context.Add(newCustomer);
-            _context.SaveChanges();
-        }
 
 
         void IRepository.RemoveCustomer(int CustomerId)

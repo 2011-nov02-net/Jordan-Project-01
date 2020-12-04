@@ -10,6 +10,7 @@ using StoreApp.DataAccess.Repositores;
 using StoreApp.DataAccess.BusinessModels;
 
 using StoreApp.Webapp.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace StoreApp.Webapp.Controllers
 {
@@ -25,8 +26,9 @@ namespace StoreApp.Webapp.Controllers
         // GET: Stores
         public async Task<IActionResult> Index(string searchString)
         {
+            string Name = HttpContext.Session.GetString("Name");
+            TempData["Name"] = Name;
             Database db = new Database(await _repository.GetAllStoresAsync());
-
             var stores = db.GetStoresByName(searchString);
 
             return View(stores);

@@ -35,6 +35,13 @@ namespace StoreApp.Webapp
                 services.AddScoped<IRepository, StoreRepository>();
 
             }
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromDays(1);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
             services.AddControllersWithViews();
             services.AddDbContext<StoreDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
         }
@@ -58,7 +65,7 @@ namespace StoreApp.Webapp
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseSession();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

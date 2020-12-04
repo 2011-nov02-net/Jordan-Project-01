@@ -18,7 +18,7 @@ namespace StoreApp.DataAccess.Repositores
         Task<BusinessModels.Store> GetProduct(int StoreId, int ProductId);
         Task<List<BusinessModels.Customer>> GetAllCustomersAsync();
         IEnumerable<BusinessModels.Customer> GetAllCustomers();
-        void AddCustomer(BusinessModels.Customer customer);
+        Task AddCustomer(BusinessModels.Customer customer);
         void RemoveCustomer(int CustomerId);
 
         Task<List<BusinessModels.Product>> GetAllProductsAsync();
