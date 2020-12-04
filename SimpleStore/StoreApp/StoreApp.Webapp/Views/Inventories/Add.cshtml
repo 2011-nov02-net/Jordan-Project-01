@@ -1,7 +1,7 @@
 ﻿@model InventoryViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Add To Cart";
 }
 
 
@@ -19,11 +19,7 @@
         <div class="col-md-4">
             <form asp-action="Create">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="StoreId" class="control-label"></label>
-                    <input asp-for="StoreId" class="form-control" />
-                    <span asp-validation-for="StoreId" class="text-danger"></span>
-                </div>
+
                 <div class="form-group">
                     <label asp-for="QuantityPurchase" class="control-label"></label>
                     <Input asp-for="QuantityPurchase" class="form-control" />
@@ -35,13 +31,25 @@
                 </div>
             </form>
         </div>
-        <div class="col-md-8">
-            @Html.DisplayForModel(Model);
+        <div class="col-md-8 row">
+            <div class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Name)
+            </div>
+            <div class="col-sm-10">
+                @Html.DisplayFor(model => model.Name)
+            </div>
+            <div class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Price)
+            </div>
+            <div class="col-sm-10">
+                @Html.DisplayFor(model => model.Price)
+            </div>
+
         </div>
     </div>
 
     <div>
-        <a asp-action="Index">Back to List</a>
+        <a asp-controller="Inventories" asp-action="Index" asp-route-id="@Model.StoreId">Back to List</a>
     </div>
 
     @section Scripts {

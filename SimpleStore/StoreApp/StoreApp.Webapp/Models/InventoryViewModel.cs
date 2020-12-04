@@ -17,6 +17,7 @@ namespace StoreApp.Webapp.Models
         public int ProductId { get; set; }
         public string Name { get; set; }
         public int Quantity { get; set; }
+        [DataType(DataType.Currency)]
         public double Price { get; set; }
 
         [Range(0, 20)]
