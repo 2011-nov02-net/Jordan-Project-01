@@ -26,11 +26,8 @@ namespace StoreApp.Webapp.Controllers
         // GET: Stores
         public async Task<IActionResult> Index(string searchString)
         {
-            string Name = HttpContext.Session.GetString("Name");
-            TempData["Name"] = Name;
             Database db = new Database(await _repository.GetAllStoresAsync());
             var stores = db.GetStoresByName(searchString);
-
             return View(stores);
         }
 
@@ -59,7 +56,7 @@ namespace StoreApp.Webapp.Controllers
         // GET: Stores/Delete/5
         public async Task<IActionResult> Delete(int id=0)
         {
-            var store = await _repository.FindStore(id);
+            var store = await _repository.FindStoreAsync(id);
             if (id==0|| store == null)
             {
                 return NotFound();

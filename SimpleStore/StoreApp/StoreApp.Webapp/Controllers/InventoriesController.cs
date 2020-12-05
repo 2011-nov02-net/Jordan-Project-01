@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +16,6 @@ namespace StoreApp.Webapp.Controllers
     public class InventoriesController : Controller
     {
         private readonly IRepository _repository;
-        public const string CartSessionKey = "CartId";
         public InventoriesController(IRepository repository)
         {
             _repository = repository;
@@ -28,48 +28,49 @@ namespace StoreApp.Webapp.Controllers
             foreach(var item in inventory.Inventory)
             {
                 p.Add(new InventoryViewModel(id, item));
-
             }
             return View(p);
         }
 
         public async Task<IActionResult> Add(int store, int product)
         {
-            var StoreGotten = await _repository.GetProduct(store, product);
+            var StoreGotten = await _repository.GetProductAsync(store, product);
 
             InventoryViewModel model = new InventoryViewModel(StoreGotten);
 
             return View(model);
         }
-                    /*
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(InventoryViewModel inventory)
+        public IActionResult Add(InventoryViewModel inventory)
         {
-            int[] cart = new int[] { inventory.StoreId, inventory.CustomerId, inventory.ProductId, inventory.Quantity };
-            var yourListString = String.Join(",", cart);
-            HttpCookie yourListCookie = new HttpCookie("YourList", cart);
-        }
-            // GET: Inventories/Details/5
-            public async Task<IActionResult> Details(int? id)
+            try
             {
-                if (id == null)
+                int? customerid = HttpContext.Session.GetInt32("Customer");
+                int[] cartmodel = { inventory.StoreId, (int)customerid, inventory.ProductId, inventory.QuantityPurchase };
+                var cart = String.Join(",", cartmodel);
+                var tempCart = HttpContext.Session.GetString("Cart");
+                if (String.IsNullOrEmpty(tempCart))
                 {
-                    return NotFound();
+                    HttpContext.Session.SetString("Cart", cart + '|');
                 }
-
-                var inventory = await _context.Inventories
-                    .Include(i => i.Product)
-                    .FirstOrDefaultAsync(m => m.StoreId == id);
-                if (inventory == null)
+                else
                 {
-                    return NotFound();
+                    HttpContext.Session.SetString("Cart", tempCart+ "|" +cart);
                 }
-
-                return View(inventory);
+                return RedirectToAction("Index", new { id = inventory.StoreId });
             }
+            catch
+            {
+                TempData["Messages"] = "User Not signed in";
+                TempData.Peek("Messages");
+                return RedirectToAction(nameof(Index));
 
+            }
+        }
+
+        /*
             // GET: Inventories/Create
             public IActionResult Create()
             {

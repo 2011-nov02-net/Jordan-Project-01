@@ -34,13 +34,10 @@ namespace StoreApp.Webapp.Controllers
         // GET: CustomersController/Details/5
         public ActionResult SignIn(int customerid, string name)
         {
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("Name")))
-            {
-                HttpContext.Session.SetString("Name", name);
-                HttpContext.Session.SetInt32("Customer", customerid);
-            }
-            var Name = HttpContext.Session.GetString("Name");
-            var Age = HttpContext.Session.GetInt32("Customer");
+            // set the customer id for session
+            HttpContext.Session.SetInt32("Customer", customerid);
+            HttpContext.Session.SetString("Name", name);
+
             return Redirect("~/");
         }
 
@@ -88,18 +85,24 @@ namespace StoreApp.Webapp.Controllers
         }
 
         // GET: CustomersController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            return View();
+            var model = new CustomerViewModel(await _repository.FindCustomer(id));
+            if (id == 0 || model == null)
+            {
+                return NotFound();
+            }
+            return View(model);
         }
 
         // POST: CustomersController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(int id, IFormCollection collection)
         {
             try
             {
+                await _repository.DeleteCustomer(id);
                 return RedirectToAction(nameof(IndexAsync));
             }
             catch

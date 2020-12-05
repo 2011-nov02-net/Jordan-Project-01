@@ -68,17 +68,21 @@ namespace StoreApp.DataAccess.Repositores
             await _context.AddAsync(newCustomer);
             await _context.SaveChangesAsync();
         }
-        public async Task<BusinessModels.Store> FindStore(int StoreId)
+        public async Task<BusinessModels.Store> FindStoreAsync(int StoreId)
         {
             EfModels.Store e = await _context.Stores.FindAsync(StoreId);
             return new BusinessModels.Store(e.StoreId, e.Name, e.Street, e.State, e.City, e.Zip);
         }
-
+        public BusinessModels.Store FindStore(int StoreId)
+        {
+            EfModels.Store e =  _context.Stores.Find(StoreId);
+            return new BusinessModels.Store(e.StoreId, e.Name, e.Street, e.State, e.City, e.Zip);
+        }
         async Task IRepository.DeleteStore(int StoreId)
         {
             EfModels.Store store = await _context.Stores.FindAsync(StoreId);
             _context.Stores.Remove(store);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
         }
 
@@ -93,10 +97,18 @@ namespace StoreApp.DataAccess.Repositores
             return table;
         }
 
-        IEnumerable<BusinessModels.Customer> IRepository.GetAllCustomers()
+        async Task<BusinessModels.Customer> IRepository.FindCustomer(int CustomerId)
         {
-            throw new NotImplementedException();
+            EfModels.Customer e = await _context.Customers.FindAsync(CustomerId);
+            return new BusinessModels.Customer(e.CustomerId , e.FirstName, e.LastName, e.Email, e.Phone);
         }
+        async Task IRepository.DeleteCustomer(int CustomerId)
+        {
+            EfModels.Customer store = await _context.Customers.FindAsync(CustomerId);
+            _context.Customers.Remove(store);
+            await _context.SaveChangesAsync();
+        }
+
 
 
 
@@ -170,11 +182,11 @@ namespace StoreApp.DataAccess.Repositores
             return store;
         }
 
-        async Task<BusinessModels.Store> IRepository.GetProduct(int StoreId, int ProductId)
+        async Task<BusinessModels.Store> IRepository.GetProductAsync(int StoreId, int ProductId)
         {
             {
                 // get the store id
-                var store = await FindStore(StoreId);
+                var store = await FindStoreAsync(StoreId);
                 var dbInventory = await _context.Inventories.Include(i => i.Product).ThenInclude(i => i.Prices).FirstOrDefaultAsync(i => i.StoreId == StoreId && i.ProductId==ProductId);
                 var price = dbInventory.Product.Prices;
                 var list = price.ToList();
@@ -183,6 +195,115 @@ namespace StoreApp.DataAccess.Repositores
                 //int productID, string name, int quantity, double price
                 return store;
             }
+        }
+         public BusinessModels.Store GetProduct(int StoreId, int ProductId)
+        {
+            var store = FindStore(StoreId);
+            var dbInventory = _context.Inventories.Include(i => i.Product).ThenInclude(i => i.Prices).FirstOrDefault(i => i.StoreId == StoreId && i.ProductId == ProductId);
+            var price = dbInventory.Product.Prices;
+            var list = price.ToList();
+            decimal cost = list[0].Price1;
+            store.Inventory.Add(new BusinessModels.Product(dbInventory.ProductId, dbInventory.Product.Name, Convert.ToInt32(dbInventory.Quantity), (double)cost));
+            //int productID, string name, int quantity, double price
+            return store;
+        }
+        public async Task<int> AddCustomerOrder(DataAccess.BusinessModels.Database db)
+        {
+            Order order = db.Customers[0].CustomerOrders[0];
+            // pass in all the values in Customer Order
+            CustomerOrder newOrder = new CustomerOrder()
+            {
+                StoreId = order.StoreId,
+                CustomerId = order.CustomerId
+            };
+            // add the order and save
+            await _context.AddAsync(newOrder);
+            await _context.SaveChangesAsync();
+            int id = newOrder.TransactionNumber; // Grab the transacction Number
+            await AddCustomerItems(id, order);
+            return id;
+        }
+        public async Task AddCustomerItems(int id, Order order)
+        {
+            // commit each item to the sql file.
+            foreach (var trans in order.Items)
+            {
+                ProductOrdered newItem = new ProductOrdered()
+                {
+                    TransactionNumber = id,
+                    ProductId = trans.ProductID,
+                    Quantity = trans.Quantity
+                };
+                await _context.AddAsync(newItem);
+
+                // update inventory
+                var dbInvetory = _context.Inventories.First(i => i.ProductId == trans.ProductID && i.StoreId == order.StoreId);
+                dbInvetory.Quantity -= trans.Quantity;
+            }
+            await _context.SaveChangesAsync();
+        }
+
+
+        /// <summary>
+        /// Returns the order History by Store ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public BusinessModels.Store GetOrderHistoryOfStore(int id)
+        {
+            var dbOrderHitory = _context.CustomerOrders.Include(c => c.Customer);
+            var stores = new BusinessModels.Store(id);
+            foreach (var order in dbOrderHitory)
+            {
+                if (order.StoreId == id)
+                {
+                    var time = order.TransactionTime;
+                    stores.Orders.Add(new Order(order.TransactionNumber, id, order.CustomerId, order.Customer.FirstName, order.Customer.LastName, order.TransactionTime.ToString()));
+                }
+            }
+            return stores;
+        }
+        /// <summary>
+        /// Get Order History of Custoemr
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns> Returns a Database with the history of cutsomers</returns>
+        public BusinessModels.Customer GetOrderHistoryOfCustomer(int id)
+        {
+            var dbOrderHitory = _context.CustomerOrders.Include(c => c.Customer);
+            BusinessModels.Customer customer = new BusinessModels.Customer(id);
+            foreach (var order in dbOrderHitory)
+            {
+                if (order.CustomerId == id)
+                {
+                    customer.CustomerOrders.Add(new Order(order.TransactionNumber, id, order.CustomerId, order.Customer.FirstName, order.Customer.LastName, order.TransactionTime.ToString()));
+                }
+            }
+            return customer;
+        }
+
+        public BusinessModels.Database GetOrder(int id)
+        {
+            var dbOrderHitory = _context.CustomerOrders.Include(c => c.ProductOrdereds)
+                .ThenInclude(c => c.Product)
+                .ThenInclude(c => c.Prices);
+            var db = new BusinessModels.Database(new BusinessModels.Store(id));
+            foreach (var orders in dbOrderHitory)
+            {
+                if (orders.TransactionNumber == id)
+                {
+                    var x = orders.TransactionTime.ToString();
+                    BusinessModels.Order order = new BusinessModels.Order(id, orders.StoreId, orders.CustomerId, x);
+                    foreach (var item in orders.ProductOrdereds)
+                    {
+                        var price = item.Product.Prices.ToList();
+                        var tPrice = price[0].Price1;
+                        order.addItem(new BusinessModels.Product(item.ProductId, item.Product.Name, (int)item.Quantity, (double)tPrice));
+                    }
+                    db.Stores[0].Orders.Add(order);
+                }
+            }
+            return db;
         }
     }
 }

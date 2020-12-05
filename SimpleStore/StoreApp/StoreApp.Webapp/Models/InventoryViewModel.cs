@@ -20,7 +20,7 @@ namespace StoreApp.Webapp.Models
         [DataType(DataType.Currency)]
         public double Price { get; set; }
 
-        [Range(0, 20)]
+        [Range(1, 20, ErrorMessage ="Need to order at least one")]
         public int QuantityPurchase { get; set; }
 
 

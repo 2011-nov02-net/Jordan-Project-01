@@ -6,13 +6,13 @@ namespace StoreApp.DataAccess.BusinessModels
 {
     public class Database
     {
+        private Store store;
+
         public List<Customer> Customers { get; set; }
         public List<Store> Stores { get; set; }
+        public object Orders { get; internal set; }
 
-        public Database()
-        {
-            /* Do Nothing*/
-        }
+
         public Database(List<Store> stores)
         {
             Stores = stores;
@@ -32,6 +32,13 @@ namespace StoreApp.DataAccess.BusinessModels
             Customers = customers;
             Stores = stores;
         }
+
+        public Database(Store store)
+        {
+            Stores.Add(store);
+        
+        }
+
         /// <summary>
         /// return customer by the id passed by the user
         /// </summary>

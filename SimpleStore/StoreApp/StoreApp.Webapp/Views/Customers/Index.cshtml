@@ -58,8 +58,8 @@
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Sign In", "SignIn", new {  customerid=item.CustomerId, name = item.FirstName}) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    @Html.ActionLink("Sign In", "SignIn", new { customerid = item.CustomerId, name = item.FirstName }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CustomerId})
                 </td>
             </tr>
         }

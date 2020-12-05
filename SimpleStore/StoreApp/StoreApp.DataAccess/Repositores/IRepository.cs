@@ -14,10 +14,14 @@ namespace StoreApp.DataAccess.Repositores
         IEnumerable<BusinessModels.Store> GetAllStores();
         Task AddStoreAsync(BusinessModels.Store store);
         Task DeleteStore(int StoreId);
-        Task<BusinessModels.Store> FindStore(int StoreId);
-        Task<BusinessModels.Store> GetProduct(int StoreId, int ProductId);
+        Task<BusinessModels.Store> FindStoreAsync(int StoreId); 
+        BusinessModels.Store FindStore(int StoreId);
+
+        Task<BusinessModels.Store> GetProductAsync(int StoreId, int ProductId);
+        BusinessModels.Store GetProduct(int StoreId, int ProductId);
+
         Task<List<BusinessModels.Customer>> GetAllCustomersAsync();
-        IEnumerable<BusinessModels.Customer> GetAllCustomers();
+        Task <BusinessModels.Customer> FindCustomer(int CustomerId);
         Task AddCustomer(BusinessModels.Customer customer);
         void RemoveCustomer(int CustomerId);
 
@@ -30,5 +34,6 @@ namespace StoreApp.DataAccess.Repositores
         IEnumerable<BusinessModels.Order> GetAllOrders();
         void AddProduct(BusinessModels.Order product);
         void RemoveOrder(int OrderId);
+        Task DeleteCustomer(int StoreId);
     }
 }

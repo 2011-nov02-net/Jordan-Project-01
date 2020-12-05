@@ -10,6 +10,8 @@ namespace StoreApp.DataAccess.BusinessModels
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Password { get; set; }
+        public List<Order> CustomerOrders { get; set; }
+
 
         public Customer(int customerId, string firstName, string lastName, string email, string phone)
         {
@@ -26,11 +28,10 @@ namespace StoreApp.DataAccess.BusinessModels
             Phone = phone;
         }
 
-        public Customer()
+        public Customer(int id)
         {
-            // do nothing
+            CustomerId = id;
         }
 
-        public virtual ICollection<Order> CustomerOrders { get; set; }
     }
 }

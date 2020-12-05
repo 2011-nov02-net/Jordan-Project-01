@@ -40,6 +40,12 @@ namespace StoreApp.DataAccess.BusinessModels
             StoreId = _storeId;
             Name = _name;
         }
+        public Store(int _storeId)
+        {
+            StoreId = _storeId;
+        }
+        public Store()
+        { }
         /// <summary>
         /// Returns a true if all the required files are in the database.
         /// </summary>
