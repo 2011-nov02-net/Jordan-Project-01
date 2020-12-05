@@ -444,3 +444,6 @@ $RECYCLE.BIN/
 *.dll
 *.cache
 *.pdb
+*.dll
+*.dll
+*.pdb
