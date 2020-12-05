@@ -42,6 +42,7 @@ namespace StoreApp.Webapp.Controllers
             HttpContext.Session.SetInt32("Customer", customerid);
             HttpContext.Session.SetString("Name", name);
 
+            // after sign in send them back to the home screen
             return Redirect("~/");
         }
 
