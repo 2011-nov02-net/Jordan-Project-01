@@ -177,3 +177,4 @@ C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\bin
 C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Customers\Index.cshtml.g.cs
 C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Customers\Create.cshtml.g.cs
 C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Customers\Delete.cshtml.g.cs
+C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\ShoppingCart\Index.cshtml.g.cs

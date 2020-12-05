@@ -21,13 +21,17 @@ namespace StoreApp.Webapp.Controllers
         // GET: CustomersController
         public async Task<ActionResult> IndexAsync(string searchString)
         {
+            // get all customers from teh database
             Database db = new Database(await _repository.GetAllCustomersAsync());
             var customers = db.GetCustomerByName(searchString);
+            // creeate a new set of customers
             List<CustomerViewModel> model_customers = new List<CustomerViewModel>();
+            // add the customer to a list of customers
             foreach(var customer in customers)
             {
                 model_customers.Add(new CustomerViewModel(customer));
             }
+            // send the customers to the database
             return View(model_customers);
         }
 

@@ -29,7 +29,7 @@
                         </li>
                     </ul>
                 </div>
-                <a asp-controller="Customers" asp-action="Index">
+                <a asp-controller="ShoppingCart" asp-action="Index">
                     @{
                         if (String.IsNullOrEmpty(Context.Session.GetString("Cart")))
                         {
@@ -62,6 +62,8 @@
         </nav>
     </header>
     <div class="container">
+        <h3>@TempData["Messages"]</h3>
+
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

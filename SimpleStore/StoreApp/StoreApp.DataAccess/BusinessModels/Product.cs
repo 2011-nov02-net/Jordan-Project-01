@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace StoreApp.DataAccess.BusinessModels
 {
@@ -10,6 +11,7 @@ namespace StoreApp.DataAccess.BusinessModels
     {
         public int ProductID { get; private set; }
         public string Name { get; private set; }
+        [DataType(DataType.Currency)]
         public double Price { get; set; }
         public int Quantity { get; set; }
 

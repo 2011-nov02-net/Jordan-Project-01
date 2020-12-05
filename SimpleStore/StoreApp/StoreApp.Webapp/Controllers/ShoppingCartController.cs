@@ -21,7 +21,7 @@ namespace StoreApp.Webapp.Controllers
         {
             String cartItems = HttpContext.Session.GetString("Cart");
             var data = new Serialize(cartItems, _repository);
-                return View();
+                return View(data);
         }
     }
 }

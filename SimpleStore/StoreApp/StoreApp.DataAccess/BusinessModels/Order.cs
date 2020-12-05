@@ -43,7 +43,10 @@ namespace StoreApp.DataAccess.BusinessModels
             CustomerId = customerId;
             TransactionNumber = transaction;
             TimeStamp = time;
-
+        }
+        public Order()
+        {
+            // do nothing //
         }
         public int TransactionNumber { get; set; }
         public int StoreId { get; set; }
@@ -52,7 +55,12 @@ namespace StoreApp.DataAccess.BusinessModels
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime? TransactionTime { get; set; }
-        public List<Product> Items = new List<Product>();
+        private List<Product> _items = new List<Product>();
+        public List<Product> Items { get
+            {
+                return _items;
+            }
+        }
 
 
         //public virtual ICollection<ProductOrdered> Transaction { get; set; }
