@@ -6,12 +6,31 @@ namespace StoreApp.DataAccess.BusinessModels
 {
     public class Database
     {
-        private Store store;
-
-        public List<Customer> Customers { get; set; }
-        public List<Store> Stores { get; set; }
+        public List<Customer> _customers = new List<Customer>();
+        public List<Store> _stores = new List<Store>();
         public object Orders { get; internal set; }
-
+        public List<Store> Stores
+        {
+            get
+            {
+                return _stores;
+            }
+            set
+            {
+                _stores = value;
+            }
+        }
+        public List<Customer> Customers
+        {
+            get
+            {
+                return _customers;
+            }
+            set
+            {
+                _customers = value;
+            }
+        }
 
         public Database(List<Store> stores)
         {

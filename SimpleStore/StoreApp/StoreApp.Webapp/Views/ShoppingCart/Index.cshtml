@@ -20,7 +20,7 @@
                 Name::
             </th>
             <th>
-                Price::
+                Price:
             </th>
         </tr>
     </thead>
@@ -46,6 +46,9 @@
         }
     </tbody>
 </table>
+<div>
+    <b>Cost: </b> @Html.DisplayFor(Model => Model.Cost)
+</div>
 <form asp-action="Checkout">
-    <input type="submit" value="Delete" class="btn btn-danger" />
+    <input type="submit" value="Checkout" class="btn btn-primary" />
 </form>

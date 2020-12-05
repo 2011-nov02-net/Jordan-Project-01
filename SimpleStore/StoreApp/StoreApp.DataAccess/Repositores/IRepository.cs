@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using StoreApp.DataAccess.BusinessModels;
 using StoreApp.DataAccess.EfModels;
 
 namespace StoreApp.DataAccess.Repositores
@@ -35,5 +36,6 @@ namespace StoreApp.DataAccess.Repositores
         void AddProduct(BusinessModels.Order product);
         void RemoveOrder(int OrderId);
         Task DeleteCustomer(int StoreId);
+        Task<int> AddCustomerOrder(Database db);
     }
 }

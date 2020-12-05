@@ -11,7 +11,8 @@ namespace StoreApp.Webapp.Services
 {
     public class Serialize
     {
-
+        public int StoreId { get; set; }
+        public int CustomerId { get; set; }
         public Order _order = new Order();
         public Order SerializedOrder {
             get
@@ -37,16 +38,27 @@ namespace StoreApp.Webapp.Services
             string[] productInfo = productInfoArray.Split('|');
                 for(int i =0; i< productInfo.Length; i++)
                 {
+
                     var info = productInfo[i].Split(",");
-                    int StoreId = Int32.Parse(info[0]);
-                    int CustomerId = Int32.Parse(info[1]);
+                    int _storeId = Int32.Parse(info[0]);
+                    int _customerId = Int32.Parse(info[1]);
                     int ProductId = Int32.Parse(info[2]);
                     int Quantity = Int32.Parse(info[3]);
-                    var store = repository.GetProduct(StoreId, ProductId);
+                    var store = repository.GetProduct(_storeId, ProductId);
                     var product = store.Inventory[0];
                     product.Quantity = Quantity;
                     SerializedOrder.addItem(product);
-                    SerializedOrder.CustomerId = CustomerId;
+                    SerializedOrder.CustomerId = _customerId;
+
+                    // set the property while we're at it.
+                    if (i == 0)
+                    {
+                        StoreId = _storeId;
+                        CustomerId = _customerId;
+
+                        SerializedOrder.StoreId = StoreId;
+                        SerializedOrder.CustomerId = CustomerId;
+                    }
                 }
             }
         }
