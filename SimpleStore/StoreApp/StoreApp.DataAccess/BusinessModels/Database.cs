@@ -8,7 +8,7 @@ namespace StoreApp.DataAccess.BusinessModels
     {
         public List<Customer> _customers = new List<Customer>();
         public List<Store> _stores = new List<Store>();
-        public object Orders { get; internal set; }
+        public List<Order> _orders = new List<Order>();
         public List<Store> Stores
         {
             get
@@ -31,7 +31,18 @@ namespace StoreApp.DataAccess.BusinessModels
                 _customers = value;
             }
         }
+        public List<Order> Orders
+        {
+            get
+            {
+                return _orders;
+            }
+            set
+            {
+                _orders = value;
+            }
 
+        }
         public Database(List<Store> stores)
         {
             Stores = stores;

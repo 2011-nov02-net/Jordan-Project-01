@@ -35,7 +35,7 @@ namespace StoreApp.Webapp.Controllers
             return View(model_customers);
         }
 
-        // GET: CustomersController/Details/5
+        // GET: CustomersController/SignIn/
         public ActionResult SignIn(int customerid, string name)
         {
             // set the customer id for session
@@ -44,6 +44,11 @@ namespace StoreApp.Webapp.Controllers
 
             // after sign in send them back to the home screen
             return Redirect("~/");
+        }
+        public ActionResult HistoryDetails(int id)
+        {
+            Order order = _repository.GetOrder(id).Stores[0].Orders[0];
+            return View(order);
         }
 
         // GET: CustomersController/Create
@@ -68,10 +73,20 @@ namespace StoreApp.Webapp.Controllers
             }
         }
 
-        // GET: CustomersController/Edit/5
-        public ActionResult Edit(int id)
+        // GET: CustomersController/History
+        public ActionResult History()
         {
-            return View();
+            try
+            {
+                int customerId = (int)HttpContext.Session.GetInt32("Customer");
+                Customer customer = _repository.GetOrderHistoryOfCustomer(customerId);
+                return View(customer);
+            }
+            catch
+            {
+                TempData["Message"] = "Please choose a customer you want to get the order history of.";
+                return RedirectToAction("Index");
+            }
         }
 
         // POST: CustomersController/Edit/5

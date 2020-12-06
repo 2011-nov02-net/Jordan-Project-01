@@ -268,25 +268,38 @@ namespace StoreApp.DataAccess.Repositores
         /// </summary>
         /// <param name="id"></param>
         /// <returns> Returns a Database with the history of cutsomers</returns>
-        public BusinessModels.Customer GetOrderHistoryOfCustomer(int id)
+        BusinessModels.Customer IRepository.GetOrderHistoryOfCustomer(int id)
         {
             var dbOrderHitory = _context.CustomerOrders.Include(c => c.Customer);
             BusinessModels.Customer customer = new BusinessModels.Customer(id);
+            int i = 0;
             foreach (var order in dbOrderHitory)
             {
                 if (order.CustomerId == id)
                 {
-                    customer.CustomerOrders.Add(new Order(order.TransactionNumber, id, order.CustomerId, order.Customer.FirstName, order.Customer.LastName, order.TransactionTime.ToString()));
+                    if(i==0)
+                    {
+                        customer.FirstName = order.Customer.FirstName;
+                        customer.LastName = order.Customer.LastName;
+                        customer.Phone = order.Customer.Phone;
+                        customer.CustomerId = order.Customer.CustomerId;
+                        customer.Email = order.Customer.Email;
+                    }
+                    var time = order.TransactionTime.ToString();
+                    customer.CustomerOrders.Add(new Order(order.TransactionNumber, id, order.CustomerId, order.Customer.FirstName, order.Customer.LastName, time));
+                    i++;
                 }
             }
+
             return customer;
         }
 
-        public BusinessModels.Database GetOrder(int id)
+        BusinessModels.Database IRepository.GetOrder(int id)
         {
             var dbOrderHitory = _context.CustomerOrders.Include(c => c.ProductOrdereds)
                 .ThenInclude(c => c.Product)
                 .ThenInclude(c => c.Prices);
+
             var db = new BusinessModels.Database(new BusinessModels.Store(id));
             foreach (var orders in dbOrderHitory)
             {
@@ -300,6 +313,7 @@ namespace StoreApp.DataAccess.Repositores
                         var tPrice = price[0].Price1;
                         order.addItem(new BusinessModels.Product(item.ProductId, item.Product.Name, (int)item.Quantity, (double)tPrice));
                     }
+
                     db.Stores[0].Orders.Add(order);
                 }
             }

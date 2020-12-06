@@ -37,6 +37,10 @@ namespace StoreApp.Webapp.Controllers
             var data = new Serialize(cartItems, _repository);
             DataAccess.BusinessModels.Database db = new DataAccess.BusinessModels.Database(new Store(data.StoreId)) ;
             _repository.AddCustomerOrder(db);
+
+            HttpContext.Session.SetString("Name", "");
+            HttpContext.Session.SetString("Cart", "");
+
             return Redirect("~/");
         }
 

@@ -71,7 +71,7 @@ namespace StoreApp.DataAccess.BusinessModels
         public string City { get; set; }
         public string Zip { get; set; }
 
-        private List<Product>_inventory = new List<Product>();
+        private List<Product> _inventory = new List<Product>();
 
 
         public List<Product> Inventory
@@ -83,6 +83,19 @@ namespace StoreApp.DataAccess.BusinessModels
                 Inventory = value;
             }
         }
-        public virtual ICollection<Order> Orders { get; set; }
+        public List<Order> _orders = new List<Order>();
+
+        public List<Order> Orders
+        {
+            get 
+            {
+                return _orders;
+            }
+            set
+            {
+                _orders = value;
+            }
+        }
+
     }
 }

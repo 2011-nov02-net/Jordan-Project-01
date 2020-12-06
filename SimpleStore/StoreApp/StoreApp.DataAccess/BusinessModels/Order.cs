@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace StoreApp.DataAccess.BusinessModels
 {
@@ -28,6 +29,9 @@ namespace StoreApp.DataAccess.BusinessModels
         {
             TransactionNumber = transactionNumber;
             StoreId = storeId;
+            TimeStamp = time;
+            FirstName = firstName;
+            LastName = lastName;
             
         }
         /// <summary>
@@ -54,15 +58,46 @@ namespace StoreApp.DataAccess.BusinessModels
         public string TimeStamp { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public DateTime? TransactionTime { get; set; }
-        private List<Product> _items = new List<Product>();
+        public string TransactionTime { get; set; }
+        [DataType(DataType.Currency)]
+        public double Cost
+        {
+            get
+            {
+                double _cost = 0;
+                foreach (Product item in Items)
+                {
+                    _cost += item.Price * item.Quantity;
+                }
+                return _cost;
+            }
+        }
+        public List<Product> _items = new List<Product>();
         public List<Product> Items { get
             {
                 return _items;
             }
         }
+        public IEnumerable<Product> EnumerableItems
+        {
+            get
+            {
+                return Items;
+            }
+        }
 
-
-        //public virtual ICollection<ProductOrdered> Transaction { get; set; }
+        public string Info
+        {
+            get
+            {
+                string data = "";
+                data = $"Store: {StoreId} | Transaction Number: {TransactionNumber} | Time {TimeStamp} ";
+                foreach (var item in Items)
+                {
+                    data += "\n    " + item.ToString();
+                }
+                return data;
+            }
+        }
     }
 }

@@ -174,7 +174,9 @@ C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj
 C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Inventories\Index.cshtml.g.cs
 C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Inventories\Add.cshtml.g.cs
 C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\bin\Debug\net5.0\RestSharp.dll
-C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Customers\Index.cshtml.g.cs
 C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Customers\Create.cshtml.g.cs
 C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Customers\Delete.cshtml.g.cs
 C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\ShoppingCart\Index.cshtml.g.cs
+C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Customers\HistoryDetails.cshtml.g.cs
+C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Customers\History.cshtml.g.cs
+C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Customers\Index.cshtml.g.cs

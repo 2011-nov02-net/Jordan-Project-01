@@ -37,5 +37,7 @@ namespace StoreApp.DataAccess.Repositores
         void RemoveOrder(int OrderId);
         Task DeleteCustomer(int StoreId);
         Task<int> AddCustomerOrder(Database db);
+        BusinessModels.Customer GetOrderHistoryOfCustomer(int id);
+        Database GetOrder(int id);
     }
 }

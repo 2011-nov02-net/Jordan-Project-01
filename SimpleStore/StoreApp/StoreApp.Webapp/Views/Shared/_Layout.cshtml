@@ -29,7 +29,7 @@
                         </li>
                     </ul>
                 </div>
-                <a asp-controller="ShoppingCart" asp-action="Index">
+                <a class="nav-link text-dark" asp-controller="ShoppingCart" asp-action="Index">
                     @{
                         if (String.IsNullOrEmpty(Context.Session.GetString("Cart")))
                         {
@@ -45,13 +45,16 @@
                 @{
                     if (!String.IsNullOrEmpty(Context.Session.GetString("Name")))
                     {
-                        <a asp-controller="Customers" asp-action="Index">
+                        <a class="nav-link text-dark" asp-controller="Customers" asp-action="Index">
                             @Context.Session.GetString("Name")
+                        </a>
+                        <a asp-controller="Customers" asp-action="History">
+                            Profile
                         </a>
                     }
                     else
                     {
-                        <a asp-controller="Customers" asp-action="Index">
+                        <a class="nav-link text-dark" asp-controller="Customers" asp-action="Index">
                             sign in
                         </a>
                     }
