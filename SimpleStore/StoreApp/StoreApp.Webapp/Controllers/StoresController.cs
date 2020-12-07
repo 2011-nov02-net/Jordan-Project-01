@@ -77,6 +77,11 @@ namespace StoreApp.Webapp.Controllers
                 return RedirectToAction("Index");
             }
         }
+        public ActionResult HistoryDetails(int id)
+        {
+            Order order = _repository.GetOrder(id).Stores[0].Orders[0];
+            return View(order);
+        }
 
         // POST: Stores/Delete/5
         [HttpPost, ActionName("Delete")]

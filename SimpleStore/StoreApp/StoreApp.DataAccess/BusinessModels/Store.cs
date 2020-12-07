@@ -35,14 +35,14 @@ namespace StoreApp.DataAccess.BusinessModels
             City = _city;
             Zip = _zip;
         }
-        public Store(int _storeId, string _name)
+        public Store(int storeId, string _name)
         {
-            StoreId = _storeId;
+            StoreId = storeId;
             Name = _name;
         }
-        public Store(int _storeId)
+        public Store(int storeId)
         {
-            StoreId = _storeId;
+            StoreId = storeId;
         }
         public Store()
         { }
@@ -50,14 +50,10 @@ namespace StoreApp.DataAccess.BusinessModels
         /// Returns a true if all the required files are in the database.
         /// </summary>
         /// <returns></returns>
-        public bool isValid()
+        public bool IsValid()
         {
             // if the string is empty return false
-            if (String.IsNullOrEmpty(Name) || StoreId == 0)
-                return false;
-
-            // otherwise return true
-            return true;
+            return !String.IsNullOrEmpty(Name) && StoreId != 0;
         }
         public void AddInventory(Product product)
         {
@@ -96,14 +92,7 @@ namespace StoreApp.DataAccess.BusinessModels
                 _orders = value;
             }
         }
-        public List<Order> OrderEnumerable
-        {
-        get
-            {
-                return _orders;
-
-            }
-        }
-
-}
+        // use this is we want to use our orders in a view
+        public IEnumerable<Order> OrderEnumerable => _orders;
+    }
 }
