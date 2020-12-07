@@ -1,0 +1,65 @@
+﻿@model StoreApp.DataAccess.BusinessModels.Order
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<h1>Order Details</h1>
+
+<div>
+    <h4>Order</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TransactionNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TransactionNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.StoreId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StoreId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Cost)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Cost)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CustomerId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CustomerId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TimeStamp)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TimeStamp)
+        </dd>
+    </dl>
+</div>
+    <div class="container">
+    @foreach (var item in Model.EnumerableItems)
+    {
+            <div class="row">
+                <div class="col-sm">
+                    <b>Product Id: </b> @Html.DisplayFor(modelItem => item.ProductID)
+                </div>
+                <div class="col-sm">
+                    <b>Description: </b> @Html.DisplayFor(modelItem => item.Name)
+                </div >
+                <div class="col-sm">
+                    <b>Quantity: </b> @Html.DisplayFor(modelItem => item.Quantity)
+                </div>
+            </div>
+
+    }
+</div>
+
+        <div>
+            <a asp-action="History">Back to List</a>
+        </div>

@@ -64,6 +64,19 @@ namespace StoreApp.Webapp.Controllers
             return View(store );
 
         }
+        public IActionResult History(int id = 1)
+        {
+            try
+            {
+                var store = _repository.GetOrderHistoryOfStore(id);
+                return View(store);
+            }
+            catch
+            {
+                TempData["Message"] = "Please choose a Store you want to get the order history of.";
+                return RedirectToAction("Index");
+            }
+        }
 
         // POST: Stores/Delete/5
         [HttpPost, ActionName("Delete")]

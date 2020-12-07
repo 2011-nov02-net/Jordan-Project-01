@@ -39,5 +39,6 @@ namespace StoreApp.DataAccess.Repositores
         Task<int> AddCustomerOrder(Database db);
         BusinessModels.Customer GetOrderHistoryOfCustomer(int id);
         Database GetOrder(int id);
+        BusinessModels.Store GetOrderHistoryOfStore(int id);
     }
 }

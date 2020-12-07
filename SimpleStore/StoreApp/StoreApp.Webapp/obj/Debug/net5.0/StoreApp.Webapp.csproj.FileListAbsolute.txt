@@ -187,3 +187,5 @@ C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\bin
 C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\bin\Debug\net5.0\Serilog.Sinks.Console.dll
 C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\bin\Debug\net5.0\Serilog.Sinks.Debug.dll
 C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\bin\Debug\net5.0\Serilog.Sinks.File.dll
+C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Shared\HistoryDetails.cshtml.g.cs
+C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Stores\History.cshtml.g.cs

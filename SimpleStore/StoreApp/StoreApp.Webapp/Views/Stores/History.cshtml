@@ -1,4 +1,4 @@
-﻿@model StoreApp.DataAccess.BusinessModels.Customer
+﻿@model StoreApp.DataAccess.BusinessModels.Store
 
 @{
     ViewData["Title"] = "History";
@@ -11,39 +11,35 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CustomerId)
+            @Html.DisplayNameFor(model => model.StoreId)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CustomerId)
+            @Html.DisplayFor(model => model.StoreId)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayNameFor(model => model.Name)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FirstName)
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.State)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Street)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayNameFor(model => model.Zip)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Phone)
+            @Html.DisplayFor(model => model.Zip)
         </dd>
 
     </dl>
 </div>
-    @foreach (var item in Model.OrderEnumberable)
+<tbody>
+    @foreach (var item in Model.OrderEnumerable)
     {
         <dl class="row">
 
@@ -55,4 +51,5 @@
             </dd>
         </dl>
   }
+    </tbody>
 

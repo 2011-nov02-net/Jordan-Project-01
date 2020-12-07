@@ -251,7 +251,7 @@ namespace StoreApp.DataAccess.Repositores
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public BusinessModels.Store GetOrderHistoryOfStore(int id)
+        BusinessModels.Store IRepository.GetOrderHistoryOfStore(int id)
         {
             var dbOrderHitory = _context.CustomerOrders.Include(c => c.Customer);
             var stores = new BusinessModels.Store(id);

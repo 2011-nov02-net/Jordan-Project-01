@@ -26,6 +26,7 @@ namespace StoreApp.Webapp.Controllers
         public async Task<ActionResult> Index(string searchString)
         {
             _logger.LogInformation("The Customers Index has been invoked");
+            Console.WriteLine("say hello");
             // get all customers from teh database
             Database db = new Database(await _repository.GetAllCustomersAsync());
             var customers = db.GetCustomerByName(searchString);

@@ -96,6 +96,14 @@ namespace StoreApp.DataAccess.BusinessModels
                 _orders = value;
             }
         }
+        public List<Order> OrderEnumerable
+        {
+        get
+            {
+                return _orders;
 
-    }
+            }
+        }
+
+}
 }
