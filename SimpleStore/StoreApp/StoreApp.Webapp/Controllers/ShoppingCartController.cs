@@ -35,8 +35,16 @@ namespace StoreApp.Webapp.Controllers
             String cartItems = HttpContext.Session.GetString("Cart");
             // grab the data and unserialize it.
             var data = new Serialize(cartItems, _repository);
-            DataAccess.BusinessModels.Database db = new DataAccess.BusinessModels.Database(new Store(data.StoreId)) ;
-            _repository.AddCustomerOrder(db);
+            try
+            {
+                //DataAccess.BusinessModels.Database db = new DataAccess.BusinessModels.Database(new Store(data.SerializedOrder));
+                _repository.AddCustomerOrder(data.SerializedOrder);
+
+            }
+            catch
+            {
+                
+            }
 
             HttpContext.Session.SetString("Name", "");
             HttpContext.Session.SetString("Cart", "");

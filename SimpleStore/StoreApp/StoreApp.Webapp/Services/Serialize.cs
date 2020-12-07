@@ -35,15 +35,20 @@ namespace StoreApp.Webapp.Services
         public Serialize(string productInfoArray, IRepository repository)
         {
             if (!String.IsNullOrEmpty(productInfoArray)) { 
+            // split the array by the key letter
             string[] productInfo = productInfoArray.Split('|');
                 for(int i =0; i< productInfo.Length; i++)
                 {
 
                     var info = productInfo[i].Split(",");
+                    
+                    // set the parsed info to the corresponding values
                     int _storeId = Int32.Parse(info[0]);
                     int _customerId = Int32.Parse(info[1]);
                     int ProductId = Int32.Parse(info[2]);
                     int Quantity = Int32.Parse(info[3]);
+
+
                     var store = repository.GetProduct(_storeId, ProductId);
                     var product = store.Inventory[0];
                     product.Quantity = Quantity;

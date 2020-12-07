@@ -209,9 +209,10 @@ namespace StoreApp.DataAccess.Repositores
             //int productID, string name, int quantity, double price
             return store;
         }
-         async Task<int> IRepository.AddCustomerOrder(DataAccess.BusinessModels.Database db)
+         async Task<int> IRepository.AddCustomerOrder(DataAccess.BusinessModels.Order db)
         {
-            Order order = db.Customers[0].CustomerOrders[0];
+            EfModels.CustomerOrder eOrder;
+            Order order = db;
             // pass in all the values in Customer Order
             CustomerOrder newOrder = new CustomerOrder()
             {
@@ -220,7 +221,7 @@ namespace StoreApp.DataAccess.Repositores
             };
             // add the order and save   
             await _context.AddAsync(newOrder);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             int id = newOrder.TransactionNumber; // Grab the transacction Number
             await AddCustomerItems(id, order);
             return id;
