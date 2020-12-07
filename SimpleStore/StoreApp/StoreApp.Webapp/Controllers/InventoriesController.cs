@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using RestSharp;
 using StoreApp.DataAccess.EfModels;
 using StoreApp.DataAccess.Repositores;
 using StoreApp.Webapp.Models;
+using StoreApp.Webapp.Services;
 
 namespace StoreApp.Webapp.Controllers
 {
@@ -47,17 +49,29 @@ namespace StoreApp.Webapp.Controllers
         {
             try
             {
+                // get the values of what's in session
                 int? customerid = HttpContext.Session.GetInt32("Customer");
-                int[] cartmodel = { inventory.StoreId, (int)customerid, inventory.ProductId, inventory.QuantityPurchase };
-                var cart = String.Join(",", cartmodel);
                 var tempCart = HttpContext.Session.GetString("Cart");
-                if (String.IsNullOrEmpty(tempCart))
+
+                // make a cart
+                var cart2 = new CartModel(inventory.StoreId, customerid, inventory.ProductId, inventory.QuantityPurchase);
+
+                CartList cartlist = new CartList();
+
+                if (!String.IsNullOrEmpty(tempCart))
+                    cartlist = (CartList)JsonConvert.DeserializeObject(tempCart);
+
+                cartlist.Cart.Add(cart2);
+
+                string cartString = JsonConvert.SerializeObject(cartlist);
+                // if our cart is valid set the strings
+                if (cart2.Valid())
                 {
-                    HttpContext.Session.SetString("Cart", cart);
+                    HttpContext.Session.SetString("Cart", cartString);
                 }
                 else
                 {
-                    HttpContext.Session.SetString("Cart", tempCart+ "|" +cart);
+                    HttpContext.Session.SetString("Cart", tempCart+ cartString);
                 }
                 return RedirectToAction("Index", new { id = inventory.StoreId });
             }
