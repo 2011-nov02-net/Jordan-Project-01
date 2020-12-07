@@ -7,42 +7,43 @@
 <h1>CheckOut</h1>
 
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Product ID:
-            </th>
-            <th>
-                Quantity:
-            </th>
-            <th>
-                Name::
-            </th>
-            <th>
-                Price:
-            </th>
-        </tr>
+<table class="table  table-striped ">
+          <caption>Checkout</caption>
+    <thead class = "thead-dark">
+    <tr>
+        <th>
+            Product ID:
+        </th>
+        <th>
+            Quantity:
+        </th>
+        <th>
+            Name::
+        </th>
+        <th>
+            Price:
+        </th>
+    </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.OrderEnumberable)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Quantity)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
+    @foreach (var item in Model.OrderEnumberable)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
 
-            </tr>
-        }
+        </tr>
+    }
     </tbody>
 </table>
 <div>
