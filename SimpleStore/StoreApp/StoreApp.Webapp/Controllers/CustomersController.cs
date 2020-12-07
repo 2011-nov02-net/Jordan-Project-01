@@ -19,7 +19,7 @@ namespace StoreApp.Webapp.Controllers
             _repository = repository;
         }
         // GET: CustomersController
-        public async Task<ActionResult> IndexAsync(string searchString)
+        public async Task<ActionResult> Index(string searchString)
         {
             // get all customers from teh database
             Database db = new Database(await _repository.GetAllCustomersAsync());
@@ -65,7 +65,7 @@ namespace StoreApp.Webapp.Controllers
             try
             {
                 await _repository.AddCustomer(new DataAccess.BusinessModels.Customer(customer.FirstName, customer.LastName, customer.Email, customer.Phone));
-                return RedirectToAction(nameof(IndexAsync));
+                return RedirectToAction(nameof(Index));
             }
             catch
             {
@@ -88,21 +88,7 @@ namespace StoreApp.Webapp.Controllers
                 return RedirectToAction("Index");
             }
         }
-
-        // POST: CustomersController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(IndexAsync));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        
 
         // GET: CustomersController/Delete/5
         public async Task<ActionResult> Delete(int id)
@@ -123,7 +109,7 @@ namespace StoreApp.Webapp.Controllers
             try
             {
                 await _repository.DeleteCustomer(id);
-                return RedirectToAction(nameof(IndexAsync));
+                return RedirectToAction(nameof(Index));
             }
             catch
             {
