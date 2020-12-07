@@ -168,9 +168,7 @@ C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj
 C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Stores\Details.cshtml.g.cs
 C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Stores\Edit.cshtml.g.cs
 C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Stores\Index.cshtml.g.cs
-C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Inventories\Delete.cshtml.g.cs
 C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Inventories\Details.cshtml.g.cs
-C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Inventories\Edit.cshtml.g.cs
 C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Inventories\Index.cshtml.g.cs
 C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Inventories\Add.cshtml.g.cs
 C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\bin\Debug\net5.0\RestSharp.dll
@@ -180,3 +178,12 @@ C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj
 C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Customers\HistoryDetails.cshtml.g.cs
 C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Customers\History.cshtml.g.cs
 C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\obj\Debug\net5.0\Razor\Views\Customers\Index.cshtml.g.cs
+C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\bin\Debug\net5.0\Serilog.dll
+C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\bin\Debug\net5.0\Serilog.AspNetCore.dll
+C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\bin\Debug\net5.0\Serilog.Extensions.Hosting.dll
+C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\bin\Debug\net5.0\Serilog.Extensions.Logging.dll
+C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\bin\Debug\net5.0\Serilog.Formatting.Compact.dll
+C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\bin\Debug\net5.0\Serilog.Settings.Configuration.dll
+C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\bin\Debug\net5.0\Serilog.Sinks.Console.dll
+C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\bin\Debug\net5.0\Serilog.Sinks.Debug.dll
+C:\Users\isidr\revature\jordan-project1\SimpleStore\StoreApp\StoreApp.Webapp\bin\Debug\net5.0\Serilog.Sinks.File.dll

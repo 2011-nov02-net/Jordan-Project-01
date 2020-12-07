@@ -7,16 +7,18 @@ using StoreApp.DataAccess.BusinessModels;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace StoreApp.DataAccess.Repositores
 {
     public class StoreRepository : IRepository
     {
         private readonly StoreDBContext _context;
-        public StoreRepository(StoreDBContext context)
+        private readonly ILogger _logger;
+
+        public StoreRepository(StoreDBContext context, ILoggerFactory logFactor)
         {
             _context = context;
-            context.Database.EnsureCreated();
         }
         /// <summary>
         /// Connect to the database and grab tables

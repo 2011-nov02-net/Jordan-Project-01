@@ -43,6 +43,7 @@ namespace StoreApp.Webapp
                 options.Cookie.IsEssential = true;
             });
             services.AddControllersWithViews();
+
             services.AddDbContext<StoreDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
         }
 

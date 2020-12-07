@@ -7,20 +7,25 @@ using System.Threading.Tasks;
 using StoreApp.DataAccess.Repositores;
 using StoreApp.DataAccess.BusinessModels;
 using StoreApp.Webapp.Models;
+using Microsoft.Extensions.Logging;
 
 namespace StoreApp.Webapp.Controllers
 {
     public class CustomersController : Controller
     {
         private readonly IRepository _repository;
+        private readonly ILogger _logger;
 
-        public CustomersController(IRepository repository)
+        public CustomersController(IRepository repository, ILoggerFactory logFactory)
         {
             _repository = repository;
+            _logger = logFactory.CreateLogger<CustomersController>();
+
         }
         // GET: CustomersController
         public async Task<ActionResult> Index(string searchString)
         {
+            _logger.LogInformation("The Customers Index has been invoked");
             // get all customers from teh database
             Database db = new Database(await _repository.GetAllCustomersAsync());
             var customers = db.GetCustomerByName(searchString);
