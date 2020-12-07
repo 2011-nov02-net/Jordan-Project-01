@@ -4,7 +4,7 @@
     ViewData["Title"] = "View";
 }
 
-<h1>View</h1>
+<h1>Order Details</h1>
 
 <div>
     <h4>Order</h4>
@@ -42,22 +42,24 @@
         </dd>
     </dl>
 </div>
-<thead>
+    <div class="container">
     @foreach (var item in Model.EnumerableItems)
     {
-        <tr class="row">
-            <td>
-                <b>Product Id:</b> @Html.DisplayFor(modelItem => item.ProductID)
-            </td>
-            <td>
-                <b>Description:</b> @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                Quantity: @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-        </tr>
+            <div class="row">
+                <div class="col-sm">
+                    <b>Product Id: &nbsp;</b> @Html.DisplayFor(modelItem => item.ProductID)
+                </div>
+                <div class="col-sm">
+                    <b>Description: &nbsp; </b> @Html.DisplayFor(modelItem => item.Name)
+                </div >
+                <div class="col-sm">
+                    <b>Quantity:</b> @Html.DisplayFor(modelItem => item.Quantity)
+                </div>
+            </div>
+
     }
-</thead>
+        </div>
+
         <div>
             <a asp-action="History">Back to List</a>
         </div>
