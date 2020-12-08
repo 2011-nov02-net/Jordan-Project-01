@@ -11,12 +11,17 @@ namespace StoreApp.Webapp.Models
     {
         [Display(Name="Customer ID:")]
         public int CustomerId { get; set; }
+        [Required]
         [Display(Name = "First Name:")]
-
         public string FirstName { get; set; }
+        [Required]
+
         [Display(Name = "Last Name :")]
         public string LastName { get; set; }
+        [Required]
+
         public string Email { get; set; }
+        [Required]
         [DisplayFormat(DataFormatString = "{0:###-###-####}")]
         public string Phone { get; set; }
         public CustomerViewModel(Customer e)
