@@ -70,7 +70,7 @@ namespace UnitTest
             Assert.Equal(2, locationList[0].StoreId);
         }
         [Fact]
-        public void Create_Valid_Customer()
+        public async Task Create_Valid_Customer()
         {
             // Arrange
             var mockRepo = new Mock<IRepository>();
@@ -79,9 +79,10 @@ namespace UnitTest
             custTest.LastName = "garcia";
             custTest.Phone = "9992221111";
             var viewmodel = new CustomerViewModel(custTest);
-        var controller = new CustomersController(mockRepo.Object);
+            var controller = new CustomersController(mockRepo.Object);
+
             // Act
-            IActionResult actionResult = (IActionResult)controller.Create(viewmodel);
+            var result = await controller.Create(viewmodel);
             // Assert
             Assert.True(controller.ModelState.IsValid);
         }
