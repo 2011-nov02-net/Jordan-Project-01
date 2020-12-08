@@ -1,15 +1,23 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace StoreApp.DataAccess.BusinessModels
 {
     public class Customer
     {
+        [Display(Name ="Customer ID")]
         public int CustomerId { get; set; }
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
+        [Display(Name = "Last Name")]
+
         public string LastName { get; set; }
+        [Display(Name = "Email")]
+
         public string Email { get; set; }
+        [Display(Name = "Phone")]
+        [DisplayFormat(DataFormatString = "{0:###-###-####}")]
         public string Phone { get; set; }
-        public string Password { get; set; }
         public List<Order> _customerOrders = new List<Order>();
         public List<Order> CustomerOrders => _customerOrders;
 
@@ -43,10 +51,22 @@ namespace StoreApp.DataAccess.BusinessModels
             Email = email;
             Phone = phone;
         }
+        public Customer()
+        {
+
+        }
 
         public Customer(int id)
         {
             CustomerId = id;
+        }
+        public bool isValid()
+        {
+            if (CustomerId!=0)
+            {
+                return true;
+            }
+            return false;
         }
         public string PrintOrderHistory
         {

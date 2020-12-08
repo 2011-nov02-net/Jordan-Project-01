@@ -210,7 +210,6 @@ namespace StoreApp.DataAccess.Repositores
         }
          async Task<int> IRepository.AddCustomerOrder(DataAccess.BusinessModels.Order db)
         {
-            EfModels.CustomerOrder eOrder;
             Order order = db;
             // pass in all the values in Customer Order
             CustomerOrder newOrder = new CustomerOrder()
@@ -253,7 +252,7 @@ namespace StoreApp.DataAccess.Repositores
         /// <returns></returns>
         BusinessModels.Store IRepository.GetOrderHistoryOfStore(int id)
         {
-            var dbOrderHitory = _context.CustomerOrders.Include(c => c.Customer);
+            var dbOrderHitory = _context.CustomerOrders.Include(c => c.Customer).Include(c=> c.Store);
             var stores = new BusinessModels.Store(id);
             foreach (var order in dbOrderHitory)
             {
@@ -261,6 +260,8 @@ namespace StoreApp.DataAccess.Repositores
                 {
                     var time = order.TransactionTime;
                     stores.Orders.Add(new Order(order.TransactionNumber, id, order.CustomerId, order.Customer.FirstName, order.Customer.LastName, order.TransactionTime.ToString()));
+                    stores.Name = order.Store.Name;
+
                 }
             }
             return stores;
@@ -288,7 +289,7 @@ namespace StoreApp.DataAccess.Repositores
                         customer.Email = order.Customer.Email;
                     }
                     var time = order.TransactionTime.ToString();
-                    customer.CustomerOrders.Add(new Order(order.TransactionNumber, id, order.CustomerId, order.Customer.FirstName, order.Customer.LastName, time));
+                    customer.CustomerOrders.Add(new Order(order.TransactionNumber, order.StoreId, order.CustomerId, order.Customer.FirstName, order.Customer.LastName, time));
                     i++;
                 }
             }

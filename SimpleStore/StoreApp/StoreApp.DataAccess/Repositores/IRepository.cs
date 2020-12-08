@@ -17,7 +17,6 @@ namespace StoreApp.DataAccess.Repositores
         Task DeleteStore(int StoreId);
         Task<BusinessModels.Store> FindStoreAsync(int StoreId); 
         BusinessModels.Store FindStore(int StoreId);
-
         Task<BusinessModels.Store> GetProductAsync(int StoreId, int ProductId);
         BusinessModels.Store GetProduct(int StoreId, int ProductId);
 

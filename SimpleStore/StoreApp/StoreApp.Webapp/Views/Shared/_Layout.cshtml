@@ -17,14 +17,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Orders" asp-action="Index">Orders</a>
-                        </li>
-                    </ul>
+
                 </div>
                 <a class="nav-link text-white" asp-controller="ShoppingCart" asp-action="Index">
                     @{
@@ -62,16 +55,16 @@
         </nav>
     </header>
     <div class="container">
-        <h3>@TempData["Messages"]</h3>
+        <h4 class="alert-danger">@TempData["Messages"]</h4>
 
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-<footer class="border-top footer text-white bg-dark">
-    <div class="container">
-        &copy; 2020 - StoreApp.Webapp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+<footer class="border-top footer text-white bg-dark center">
+    <div class="container center">
+        &copy; 2020 - StoreApp.Webapp
     </div>
 </footer>
 

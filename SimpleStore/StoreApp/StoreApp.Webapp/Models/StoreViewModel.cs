@@ -8,8 +8,10 @@ namespace StoreApp.Webapp.Models
 {
     public class StoreViewModel
     {
+        [Display(Name="Store ID")]
         public int StoreId { get; set; }
         [Required]
+
         public string Name { get; set; }
         [Required]
         public string Street { get; set; }

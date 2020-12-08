@@ -31,7 +31,7 @@ namespace StoreApp.Webapp.Controllers
             }
             return View(p);
         }
-
+        // view for add
         public async Task<IActionResult> Add(int store, int product)
         {
             var StoreGotten = await _repository.GetProductAsync(store, product);
@@ -55,6 +55,13 @@ namespace StoreApp.Webapp.Controllers
                     TempData.Peek("Messages");
                     return Redirect("~/");
                 }
+                // check if we have enough inventory
+                if (inventory.QuantityPurchase>inventory.Quantity)
+                {
+                    TempData["Messages"] = "Not enough items in Stock";
+                    return RedirectToAction("Add", new { store = inventory.StoreId, product = inventory.ProductId });
+                }
+
                 // create an array to be serialized later
                 int[] cartmodel = { inventory.StoreId, (int)customerid, inventory.ProductId, inventory.QuantityPurchase};
                 // join the array so we can pass it onto a temp cart

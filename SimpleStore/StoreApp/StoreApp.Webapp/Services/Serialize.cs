@@ -11,7 +11,10 @@ namespace StoreApp.Webapp.Services
 {
     public class Serialize
     {
+        [Display(Name ="Store ID")]
         public int StoreId { get; set; }
+        [Display(Name = "Customer ID")]
+
         public int CustomerId { get; set; }
         public Order _order = new Order();
         public Order SerializedOrder {

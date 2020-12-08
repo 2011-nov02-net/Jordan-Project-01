@@ -19,7 +19,11 @@ namespace UnitTest
             connection.Open();
 
             // set up customer 
-            var custTest = new StoreApp.DataAccess.BusinessModels.Customer(1);
+            var custTest = new StoreApp.DataAccess.BusinessModels.Customer();
+            custTest.Email = "g";
+            custTest.FirstName = "J";
+            custTest.FirstName = "g";
+            custTest.Phone = "123245";
             // call the database and save
             using (var context = new StoreDBContext(options))
             {
@@ -32,9 +36,9 @@ namespace UnitTest
 
             //set up db again
             using var context2 = new StoreDBContext(options);
-            var customer = context2.Customers.ToListAsync();
+            var customer = await context2.Customers.Include(l => l.CustomerId == 1).ToListAsync();
 
-            Assert.Equal(0,customer.Id);
+            Assert.Equal(0,customer[0].CustomerId);
         }
     }
 }

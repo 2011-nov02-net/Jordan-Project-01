@@ -25,13 +25,14 @@ namespace StoreApp.DataAccess.BusinessModels
             Items.Add(item);
         }
 
-        public Order(int transactionNumber, int storeId, int CustomerId, string firstName, string lastName, string time)
+        public Order(int transactionNumber, int storeId, int customerId, string firstName, string lastName, string time)
         {
             TransactionNumber = transactionNumber;
             StoreId = storeId;
             TimeStamp = time;
             FirstName = firstName;
             LastName = lastName;
+            CustomerId = CustomerId;
             
         }
         /// <summary>

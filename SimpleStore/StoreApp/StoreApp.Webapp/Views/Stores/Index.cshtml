@@ -9,20 +9,20 @@
         { <h1> Welcome @Context.Session.GetString("Name")</h1> } }
 </div>
 
-    <h1>Index</h1>
+    <h1 class="text-lg-center">Store App Home</h1>
     <p>
         <a asp-action="Create">Create New</a>
     </p>
     @using (Html.BeginForm())
     {
         <p>
-            Title: @Html.TextBox("SearchString")
+            Filter By Store Name: @Html.TextBox("SearchString")
             <input type="submit" value="Filter" />
         </p>
     }
     <table class="table">
         <thead>
-            <tr>
+            <tr class="thead-dark">
                 <th>
                     @Html.DisplayNameFor(model => model.StoreId)
                 </th>
@@ -68,8 +68,7 @@
                     </td>
                     <td>
                         <a asp-action="History" asp-route-id="@item.StoreId">History</a> |
-                        <a asp-controller="Inventories" asp-route-id="@item.StoreId">Make Order</a> |
-                        <a asp-action="Delete" asp-route-id="@item.StoreId">Delete</a>
+                        <a asp-controller="Inventories" asp-route-id="@item.StoreId">Make Order</a> 
                     </td>
                 </tr>
             }
@@ -77,5 +76,5 @@
     </table>
 
     <cache enabled="true">
-        Current Time Inside Cache Tag Helper: @DateTime.Now
+        Last Time This Website Was Accessed: @DateTime.Now
     </cache>

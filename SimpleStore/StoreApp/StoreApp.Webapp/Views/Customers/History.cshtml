@@ -10,49 +10,75 @@
     <h4>Customer</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.CustomerId)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.CustomerId)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.FirstName)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.FirstName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.LastName)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.LastName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Email)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Email)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Phone)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Phone)
         </dd>
 
     </dl>
 </div>
+<table class="table">
+<thead>
+    <tr class="thead-dark">
+        <th>
+            Store Id:
+        </th>
+        <th>
+            Transaction Number
+        </th>
+        <th>
+            Transaction Time
+        </th>
+        <th></th>
+    </tr>
+</thead>
+<tbody>
+
     @foreach (var item in Model.OrderEnumberable)
     {
-        <dl class="row">
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.StoreId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TransactionNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TimeStamp)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "HistoryDetails", new { id = item.TransactionNumber })
+        </td>
 
-            <dt class="col-sm-10">
-                @Html.DisplayFor(modelItem => item.Info)
-            </dt>
-            <dd class="col-sm-2">
-                @Html.ActionLink("Details", "HistoryDetails", new { id = item.TransactionNumber })
-            </dd>
-        </dl>
-  }
+    </tr>
+    }
+</tbody>
+
+    </table>
 

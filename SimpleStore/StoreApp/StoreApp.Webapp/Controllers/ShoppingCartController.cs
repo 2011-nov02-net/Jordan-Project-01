@@ -31,8 +31,18 @@ namespace StoreApp.Webapp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Checkout()
         {
+            String cartItems = "";
             // grab the data from the cart
-            String cartItems = HttpContext.Session.GetString("Cart");
+            try
+            {
+                if (!String.IsNullOrEmpty(HttpContext.Session.GetString("Cart")))
+                    cartItems = HttpContext.Session.GetString("Cart");
+            }
+            catch
+            {
+                TempData["Message"] = "Cart Is Empty";
+
+            }
             // grab the data and unserialize it.
             var data = new Serialize(cartItems, _repository);
             try
@@ -43,9 +53,9 @@ namespace StoreApp.Webapp.Controllers
             }
             catch
             {
-                
+                TempData["Message"] = "Something went wrong";
             }
-
+            // log the user out and empty cart
             HttpContext.Session.SetString("Name", "");
             HttpContext.Session.SetString("Cart", "");
 

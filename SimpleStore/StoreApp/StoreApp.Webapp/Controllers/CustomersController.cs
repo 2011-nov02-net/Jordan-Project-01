@@ -114,7 +114,8 @@ namespace StoreApp.Webapp.Controllers
             }
             catch
             {
-                return View();
+                TempData["Messages"] = "Please remove customer's history before continuing";
+                return RedirectToAction(nameof(Index));
             }
         }
     }
