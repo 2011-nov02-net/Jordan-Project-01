@@ -59,7 +59,7 @@ namespace StoreApp.DataAccess.BusinessModels
         {
             Inventory.Add(product);
         }
-
+        [Display(Name="Store Id")]
         public int StoreId { get; set; }
         public string Name { get; set; }
         public string Street { get; set; }

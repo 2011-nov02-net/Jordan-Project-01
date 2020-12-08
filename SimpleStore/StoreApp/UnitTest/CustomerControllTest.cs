@@ -21,11 +21,6 @@ namespace UnitTest
         [Fact]
         public async Task Index_DisplayStores()
         {
-            // wanted to test out sql connection but maybe later
-            // using var connection = new SqliteConnection("Data Source=:memory:");
-            // var options = new DbContextOptionsBuilder<StoreDBContext>().UseSqlite(connection).Options; 
-            //connection.Open();
-
             // ARRANGE
 
             var mockRepository = new Mock<IRepository>();
