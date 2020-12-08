@@ -61,6 +61,12 @@ namespace StoreApp.Webapp.Controllers
                     TempData["Messages"] = "Not enough items in Stock";
                     return RedirectToAction("Add", new { store = inventory.StoreId, product = inventory.ProductId });
                 }
+                if (!ModelState.IsValid)
+                {
+                    TempData["Messages"] = "JS not activated";
+                    return RedirectToAction("Add", new { store = inventory.StoreId, product = inventory.ProductId });
+
+                }
 
                 // create an array to be serialized later
                 int[] cartmodel = { inventory.StoreId, (int)customerid, inventory.ProductId, inventory.QuantityPurchase};
