@@ -14,19 +14,14 @@ namespace StoreApp.Webapp.Controllers
     public class CustomersController : Controller
     {
         private readonly IRepository _repository;
-        private readonly ILogger _logger;
 
-        public CustomersController(IRepository repository, ILoggerFactory logFactory)
+        public CustomersController(IRepository repository)
         {
             _repository = repository;
-            _logger = logFactory.CreateLogger<CustomersController>();
-
         }
         // GET: CustomersController
         public async Task<ActionResult> Index(string searchString)
         {
-            _logger.LogInformation("The Customers Index has been invoked");
-            Console.WriteLine("say hello");
             // get all customers from teh database
             Database db = new Database(await _repository.GetAllCustomersAsync());
             var customers = db.GetCustomerByName(searchString);

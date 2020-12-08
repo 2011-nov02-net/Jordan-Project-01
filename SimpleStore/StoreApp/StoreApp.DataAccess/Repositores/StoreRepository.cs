@@ -14,9 +14,8 @@ namespace StoreApp.DataAccess.Repositores
     public class StoreRepository : IRepository
     {
         private readonly StoreDBContext _context;
-        private readonly ILogger _logger;
 
-        public StoreRepository(StoreDBContext context, ILoggerFactory logFactor)
+        public StoreRepository(StoreDBContext context)
         {
             _context = context;
         }

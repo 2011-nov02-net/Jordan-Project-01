@@ -48,9 +48,20 @@ namespace StoreApp.Webapp.Controllers
             try
             {
                 int? customerid = HttpContext.Session.GetInt32("Customer");
-                int[] cartmodel = { inventory.StoreId, (int)customerid, inventory.ProductId, inventory.QuantityPurchase };
+
+                if (customerid == 0 || customerid==null)
+                {
+                    TempData["Messages"] = "User Not signed in";
+                    TempData.Peek("Messages");
+                    return Redirect("~/");
+                }
+                // create an array to be serialized later
+                int[] cartmodel = { inventory.StoreId, (int)customerid, inventory.ProductId, inventory.QuantityPurchase};
+                // join the array so we can pass it onto a temp cart
                 var cart = String.Join(",", cartmodel);
                 var tempCart = HttpContext.Session.GetString("Cart");
+
+                // place the cart in the session
                 if (String.IsNullOrEmpty(tempCart))
                 {
                     HttpContext.Session.SetString("Cart", cart);
@@ -61,9 +72,10 @@ namespace StoreApp.Webapp.Controllers
                 }
                 return RedirectToAction("Index", new { id = inventory.StoreId });
             }
+            // catch anything we couldn't catch in the if statements
             catch
             {
-                TempData["Messages"] = "User Not signed in";
+                TempData["Messages"] = "Something went wrong";
                 TempData.Peek("Messages");
                 return Redirect("~/");
 

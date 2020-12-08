@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using StoreApp.DataAccess.EfModels;
 using StoreApp.DataAccess.Repositores;
 using StoreApp.DataAccess.BusinessModels;
-
 using StoreApp.Webapp.Models;
 using Microsoft.AspNetCore.Http;
 
@@ -28,7 +27,15 @@ namespace StoreApp.Webapp.Controllers
         {
             Database db = new Database(await _repository.GetAllStoresAsync());
             var stores = db.GetStoresByName(searchString);
-            return View(stores);
+
+            // copy each item to a store view
+            List < StoreViewModel > storesView = new List<StoreViewModel>();
+            foreach (var store in stores)
+            {
+                storesView.Add(new StoreViewModel(store));
+            }
+
+            return View(storesView);
         }
 
         // GET: Stores/Create
@@ -52,6 +59,7 @@ namespace StoreApp.Webapp.Controllers
             }
             return View(store);
         }
+
 
         // GET: Stores/Delete/5
         public async Task<IActionResult> Delete(int id=0)

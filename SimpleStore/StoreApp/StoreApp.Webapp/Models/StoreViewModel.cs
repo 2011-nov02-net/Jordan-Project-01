@@ -19,5 +19,15 @@ namespace StoreApp.Webapp.Models
         public string City { get; set; }
         [Required]
         public string Zip { get; set; }
+
+        public StoreViewModel(StoreApp.DataAccess.BusinessModels.Store store)
+        {
+            StoreId = store.StoreId;
+            Name = store.Name;
+            Street = store.Street;
+            City = store.City;
+            State = store.State;
+            Zip = store.Zip;
+        }
     }
 }

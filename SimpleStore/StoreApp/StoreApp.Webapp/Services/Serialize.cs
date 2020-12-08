@@ -48,10 +48,14 @@ namespace StoreApp.Webapp.Services
                     int ProductId = Int32.Parse(info[2]);
                     int Quantity = Int32.Parse(info[3]);
 
-
+                    // get store information
                     var store = repository.GetProduct(_storeId, ProductId);
+
+                    // get product inventory 
                     var product = store.Inventory[0];
                     product.Quantity = Quantity;
+
+                    // add item to the serialized order
                     SerializedOrder.addItem(product);
                     SerializedOrder.CustomerId = _customerId;
 
