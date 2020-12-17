@@ -32,8 +32,9 @@ To-do list:
 
 
 ## Getting Started
-To get started copy a version of this repo into your local folder
-git clone https://github.com/2011-nov02-net/Jordan-Project-01.git(include all environment setup steps)
+To get started copy a version of this repo into your local folder:
+
+git clone https://github.com/2011-nov02-net/Jordan-Project-01.git
 
 To run: dotnet run
 
