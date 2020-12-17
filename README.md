@@ -2,7 +2,9 @@
 
 ## Description
 
-Here goes your awesome project description!
+Create orders on an webpage without needing to know anything about Microsoft SQL.
+A working version can be found here:
+https://garcia-orderapp.azurewebsites.net/
 
 ## Technologies Used
 
@@ -37,6 +39,7 @@ To run: dotnet run
 
 ## Usage
 After that you should be able to get a screen that looks like this:
+![Welcom Page](/image.png)
 
 ## License
 This project uses the following license: [<license_name>](<link>).
