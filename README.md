@@ -43,5 +43,5 @@ After that you should be able to get a screen that looks like this:
 ![Welcom Page](/image.png)
 
 ## License
-This project uses the following license: [<license_name>](<link>).
+This project uses the following license: [MIT License](https://github.com/git/git-scm.com/blob/master/MIT-LICENSE.txt).
 
